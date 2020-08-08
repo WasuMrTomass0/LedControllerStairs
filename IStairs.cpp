@@ -18,7 +18,6 @@ IStairs::IStairs(LedMode ledmode, bool* m_stepsState = nullptr, int* m_stepsValu
 	if(!m_stepsState) { m_stepsState = static_cast<bool*>(malloc(m_steps * sizeof(bool))); }
 	if(!m_stepsValue) { m_stepsValue = static_cast<int*>(malloc(m_steps * sizeof(int))); }
 	
-
 	resetBaseClass();
 }
 

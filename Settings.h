@@ -4,6 +4,10 @@
 #define SETTINGS_SETTINGS_H
 
 #define SETT_STEPS 16
+#define SETT_PWMLVLS 20
+#define LOW false
+#define HIGH true
+
 #define DEBUG
 
 

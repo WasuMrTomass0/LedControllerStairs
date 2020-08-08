@@ -11,9 +11,12 @@ unsigned long millis() {
 	return 2;
 }
 
-enum class LedMode{
-	// OFF, There is no OFF mode, system can be plugged out if needed
-	ON,
+enum ManualMode {
+	ManualOn,
+	ManualOff
+};
+
+enum LedMode{
 	PWMOn,
 	PWMOff
 };
@@ -24,10 +27,13 @@ public:
 	~IStairs() = default;
 	
 	virtual bool mainLoop() = 0;
+	virtual void resetData() = 0;
+
 	virtual void setMoveUpstairs() { m_upstairsOn = true;   m_timestampUpstairs = millis(); m_timestamp = m_timestampUpstairs;  } // = 0;
 	virtual void setMoveDownstairs() { m_downstairsOn = true; m_timestampDownstairs = millis(); m_timestamp = m_timestampDownstairs; } // = 0;
 	
 	const unsigned get_steps() const {return m_steps;}
+	LedMode get_ledMode() const {return m_ledMode;}
 	bool* get_ledState() const  {return m_stepsState;}
 	int* get_ledValues() const {return m_stepsValue;}
 
