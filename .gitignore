@@ -1,0 +1,10 @@
+.vs/
+Debug/
+StairsVisualStudio.aps
+StairsVisualStudio.cpp
+StairsVisualStudio.rc
+StairsVisualStudio.sln
+StairsVisualStudio.vcxproj
+StairsVisualStudio.vcxproj.filters
+StairsVisualStudio.vcxproj.user
+resource.h
