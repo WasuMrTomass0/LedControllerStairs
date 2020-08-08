@@ -4,17 +4,17 @@
 #define ISTAIRS_ISTAIRS_H
 
 #include "Settings.h"
-#include <cstdlib>
-#include <iostream>
+#include <cstdlib> // malloc
+// #include <iostream>
 
 enum ManualMode {
-	ManualOn,
-	ManualOff
+	ManualOn = 1,
+	ManualOff = 0
 };
 
 enum LedMode{
-	PWMOn,
-	PWMOff
+	PWMOn = 1,
+	PWMOff = 0
 };
 
 class IStairs{
@@ -35,6 +35,7 @@ public:
 
 	bool get_updateRegisters();
 
+/*
 #ifdef DEBUG
 	template<typename T>
 	void printTab(T* tab, bool newLine = true) {
@@ -43,6 +44,7 @@ public:
 		if (newLine) std::cout << '\n';
 	}
 #endif
+*/
 
 protected:
 	void resetBaseClass();

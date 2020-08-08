@@ -3,8 +3,25 @@
 
 #include "Settings.h"
 
+// PWM Config
+namespace pwm {
+    extern const unsigned allLevels;
 
+    extern const unsigned freq;
+    extern const unsigned framePeriod;
+    extern const unsigned level;
 
+    extern bool* pwmState;
+    extern unsigned timeStamp;
+    //extern unsigned pwmLevel;
+    extern int pwmLevel;
+}
+
+namespace pin {
+    extern const unsigned RCLK;
+    extern const unsigned SRCLK;
+    extern const unsigned SER;
+}
 
 
 inline bool inputUpstairs() {

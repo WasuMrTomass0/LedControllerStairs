@@ -1,6 +1,6 @@
 #include "IStairs.h"
 
-IStairs::IStairs(LedMode ledmode, bool* m_stepsState = nullptr, int* m_stepsValue = nullptr) :
+IStairs::IStairs(LedMode ledmode, bool* stepsState = nullptr, int* stepsValue = nullptr) :
 	m_ledMode(ledmode)
 	//, m_steps(sett::steps)
 	, m_steps(SETT_STEPS)
@@ -15,9 +15,10 @@ IStairs::IStairs(LedMode ledmode, bool* m_stepsState = nullptr, int* m_stepsValu
 	/*
 		Memory is not realeased. It is used to the end.
 	*/
-	if(!m_stepsState) { m_stepsState = static_cast<bool*>(malloc(m_steps * sizeof(bool))); }
-	if(!m_stepsValue) { m_stepsValue = static_cast<int*>(malloc(m_steps * sizeof(int))); }
-	
+	if (!stepsState) { m_stepsState = static_cast<bool*>(malloc(m_steps * sizeof(bool))); }
+	else m_stepsState = stepsState;
+	if(!stepsValue) { m_stepsValue = static_cast<int*>(malloc(m_steps * sizeof(int))); }
+	else m_stepsValue = stepsValue;
 	resetBaseClass();
 }
 

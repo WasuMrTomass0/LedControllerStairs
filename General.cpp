@@ -1,5 +1,25 @@
 #include "General.h"
 
+namespace pwm {
+    // Led PWM levels
+    const unsigned allLevels = 20;
+
+    const unsigned freq = 50; // Frequency [Hz]
+    const unsigned framePeriod = 1000 / freq / allLevels; // Single PWM frame preiod [ms]
+    const unsigned level = 255 / allLevels;
+
+    bool* pwmState = new bool[SETT_STEPS];
+    unsigned timeStamp = 0;
+    // unsigned pwmLevel = 0;
+    int pwmLevel = 0;
+}
+
+namespace pin {
+    const unsigned RCLK = 10;
+    const unsigned SRCLK = 10;
+    const unsigned SER = 10;
+}
+
 void updateRegisters(bool* ledState) {
     digitalWrite(pin::RCLK, LOW);
     for(int i = SETT_STEPS - 1; i >= 0; i--) {
