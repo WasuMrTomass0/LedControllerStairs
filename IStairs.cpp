@@ -13,7 +13,7 @@ IStairs::IStairs(LedMode ledmode, bool* stepsState = nullptr, int* stepsValue = 
 	, m_updateRegisters(false)
 {
 	/*
-		Memory is not realeased. It is used to the end.
+		Memory will not realeased. It is used to the end.
 	*/
 	if (!stepsState) { m_stepsState = static_cast<bool*>(malloc(m_steps * sizeof(bool))); }
 	else m_stepsState = stepsState;
