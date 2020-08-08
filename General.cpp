@@ -10,20 +10,29 @@ void updateRegisters(bool* ledState) {
     digitalWrite(pin::RCLK, HIGH);
 }
 
-
-void PWM(int*) {
-
+void PWM(int* ledValues) {
+    for (size_t i = 0; i < pwm::allLevels; i++) {
+        pwm::timeStamp = millis();
+        // pwm::pwmLevel = i * pwm::level;
+        pwm::pwmLevel = (i * 255) / pwm::allLevels;
+        for (size_t s = 0; s < SETT_STEPS; s++) pwm::pwmState[s] = ledValues[s] > pwm::pwmLevel;
+        while (pwm::timeStamp + pwm::framePeriod > millis()) {}
+        updateRegisters(pwm::pwmState);
+    }
 }
 
-void wlasny_PWM() {
-    int i = 0;
-    for (i = 0; i < SETT_PWMLVLS - 1; i++) {
-        //    while(!czy_czas_minal(&tPWM_czas_wgrania, okres_wgrywania_pwm, true)); // Wstrzymanie sie na odpowiedni czas
-        //    delay(1);
-        //    delayMicroseconds(okres_wgrywania_pwm);
-        for (int s = 0; s < SETT_STEPS; s++) {
-            tPWM_chwilowy_stan[a] = (tPWM_progi_wypelnienia[a] > i || tPWM_progi_wypelnienia[a] == stopni_swiecenia - 1 ? true : false);
-        }
-        updateRegisters(tPWM_chwilowy_stan); // Wgranie danych
+void turnOnLeds(unsigned n, bool upstairs = true) {
+    for (size_t i = 0; i < SETT_STEPS; i++) {
+        pwm::pwmState[i] = (upstairs ? (i > n) : (SETT_STEPS - i <= n));
+    }
+    updateRegisters(pwm::pwmState);
+}
+
+void blink(unsigned times, unsigned period) {
+    for (unsigned i = 0; i < times; i++) {
+        turnOnLeds(SETT_STEPS);
+        delay(period);
+        turnOnLeds(0);
+        delay(period);
     }
 }

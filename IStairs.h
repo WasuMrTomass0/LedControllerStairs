@@ -7,10 +7,6 @@
 #include <cstdlib>
 #include <iostream>
 
-unsigned long millis() {
-	return 2;
-}
-
 enum ManualMode {
 	ManualOn,
 	ManualOff

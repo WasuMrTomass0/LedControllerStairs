@@ -1,6 +1,6 @@
 #include "CStairsBasic.h"
 
-CStairsBasic::CStairsBasic(LedMode ledmode, bool* m_stepsState = nullptr, int* m_stepsValue = nullptr)
+CStairsBasic::CStairsBasic(LedMode ledmode, bool* m_stepsState, int* m_stepsValue)
 	: IStairs(ledmode, m_stepsState, m_stepsValue)
 	, m_ledTime(10000)
 	, m_currLedState(false)

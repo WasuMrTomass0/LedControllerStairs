@@ -3,17 +3,9 @@
 
 #include "Settings.h"
 
-void digitalWrite(unsigned, bool);
 
-namespace pin {
-    const unsigned RCLK = 11;
-    const unsigned SRCLK = 11;
-    const unsigned SER = 11;
-}
 
-namespace pwm_sett {
-    const unsigned pwmLevels = 20;
-}
+
 
 inline bool inputUpstairs() {
     return true;
@@ -29,9 +21,12 @@ inline bool readManualMode() {
     //return (DigitalRead(xx, XX));
 }
 
+void turnOnLeds(unsigned, bool);
+
+void blink(unsigned, unsigned);
+
 void updateRegisters(bool*);
 
-bool* pwmState;
 void PWM(int*);
 
 
