@@ -1,16 +1,23 @@
 #include "IStairs.h"
 
-IStairs::IStairs(LedMode ledmode, bool* stepsState = nullptr, int* stepsValue = nullptr) :
+IStairs::IStairs(LedMode ledmode, bool* stepsState = nullptr, int* stepsValue = nullptr,
+	const unsigned pwmValDiff, const unsigned pwmValTimePeriod, const unsigned timePwmValChange,
+	const unsigned nextStepOnPeriod, const unsigned nextStepOffPeriod) :
 	m_ledMode(ledmode)
-	//, m_steps(sett::steps)
 	, m_steps(SETT_STEPS)
-	, m_timestampUpstairs(0)
-	, m_timestampDownstairs(0)
+	, m_timeUpstairs(0)
+	, m_timeDownstairs(0)
+	, m_timeMvmnt(0)
 	, m_downstairsOn(false)
 	, m_downstairsOff(false)
 	, m_upstairsOn(false)
 	, m_upstairsOff(false)
 	, m_updateRegisters(false)
+	, m_pwmValDiff(pwmValDiff)
+	, m_pwmValTimePeriod(pwmValTimePeriod)
+	, m_timePwmValChange(timePwmValChange)
+	,m_nextStepOnPeriod(nextStepOnPeriod)
+	,m_nextStepOffPeriod(nextStepOffPeriod)
 {
 	/*
 		Memory will not realeased. It is used to the end.
@@ -37,7 +44,7 @@ void IStairs::resetBaseClass() {
 
 void IStairs::switchAllTo(bool state) {
 	int val = state ? 255 : 0;
-	for (size_t i = 0; i < m_steps; i++) {
+	for (int i = 0; i < m_steps; i++) {
 		m_stepsState[i] = state;
 		m_stepsValue[i] = val;
 	}
@@ -47,4 +54,19 @@ bool IStairs::get_updateRegisters() {
 	bool state = m_updateRegisters;
 	m_updateRegisters = false;
 	return state;
+}
+
+bool IStairs::updateValuesBasic(int* stepsValue = nullptr, bool* stepsState = nullptr) {
+
+	if (!stepsValue) stepsValue = m_stepsValue;
+	if (!stepsState) stepsState = m_stepsState;
+	for (int i = 0; i < m_steps; i++) {
+		stepsValue[i] += stepsState[i] ? m_pwmValDiff : -m_pwmValDiff;
+	}
+}
+
+bool IStairs::didTimePass(unsigned* time, const unsigned period, bool update_time = true) {
+	if (*time + period < millis()) {
+		if (update_time) *time = millis();
+	}
 }

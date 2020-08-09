@@ -20,14 +20,14 @@ enum LedMode{
 
 class IStairs{
 public:
-	IStairs(LedMode, bool*, int*);
+	IStairs(LedMode, bool*, int*, const unsigned, const unsigned, const unsigned, const unsigned, const unsigned);
 	~IStairs() = default;
 	
 	virtual bool mainLoop() = 0;
 	virtual void resetData() = 0;
 
-	virtual void setMoveUpstairs() { m_upstairsOn = true;   m_timestampUpstairs = millis(); m_timestamp = m_timestampUpstairs;  } // = 0;
-	virtual void setMoveDownstairs() { m_downstairsOn = true; m_timestampDownstairs = millis(); m_timestamp = m_timestampDownstairs; } // = 0;
+	virtual void setMoveUpstairs()   { m_upstairsOn = true;   m_timeUpstairs = m_timeMvmnt = millis(); }
+	virtual void setMoveDownstairs() { m_downstairsOn = true; m_timeDownstairs = m_timeMvmnt = millis(); }
 	
 	const unsigned get_steps() const {return m_steps;}
 	LedMode get_ledMode() const {return m_ledMode;}
@@ -50,17 +50,26 @@ public:
 protected:
 	void resetBaseClass();
 	void switchAllTo(bool);
+	bool updateValuesBasic(int*, bool*); // Manages m_stepsValue based on m_stepsState
+	bool didTimePass(unsigned*, const unsigned, bool);
 
 protected:
 	const LedMode m_ledMode;
 	const unsigned m_steps;
+	const unsigned m_pwmValDiff; // Each value change
+	const unsigned m_pwmValTimePeriod; // Period beetwen changes
+	const unsigned m_nextStepOnPeriod; 
+	const unsigned m_nextStepOffPeriod;
+
 
 	bool* m_stepsState;
 	int* m_stepsValue;
-	
-	unsigned m_timestampUpstairs;
-	unsigned m_timestampDownstairs;
-	unsigned m_timestamp;
+
+	unsigned m_timeUpstairs;
+	unsigned m_timeDownstairs;
+	unsigned m_timeMvmnt;
+
+	unsigned m_timePwmValChange;
 
 	bool m_updateRegisters;
 
