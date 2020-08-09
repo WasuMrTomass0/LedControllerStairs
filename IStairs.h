@@ -4,6 +4,7 @@
 #define ISTAIRS_ISTAIRS_H
 
 #include "Settings.h"
+
 #include <cstdlib> // malloc
 // #include <iostream>
 
