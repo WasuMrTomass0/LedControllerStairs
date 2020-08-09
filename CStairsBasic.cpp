@@ -22,7 +22,7 @@ bool CStairsBasic::mainLoop() {
 			m_updateRegisters = true;
 		}
 	} else if (m_currLedState) {
-		if (m_timestamp + m_ledTime < millis()) {
+		if (m_timeMvmnt + m_ledTime < millis()) {
 			switchAllTo(false);
 			m_currLedState = false;
 			m_updateRegisters = true;

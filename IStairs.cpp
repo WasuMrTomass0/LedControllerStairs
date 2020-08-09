@@ -29,8 +29,6 @@ IStairs::IStairs(LedMode ledmode, bool* stepsState = nullptr, int* stepsValue = 
 	resetBaseClass();
 }
 
-
-
 void IStairs::resetBaseClass() {
 	for (size_t i = 0; i < m_steps; i++) {
 		m_stepsState[i] = false;
@@ -44,7 +42,7 @@ void IStairs::resetBaseClass() {
 
 void IStairs::switchAllTo(bool state) {
 	int val = state ? 255 : 0;
-	for (int i = 0; i < m_steps; i++) {
+	for (unsigned i = 0; i < m_steps; i++) {
 		m_stepsState[i] = state;
 		m_stepsValue[i] = val;
 	}
@@ -56,17 +54,34 @@ bool IStairs::get_updateRegisters() {
 	return state;
 }
 
-bool IStairs::updateValuesBasic(int* stepsValue = nullptr, bool* stepsState = nullptr) {
+//bool IStairs::updateValuesBasic(int* stepsValue, bool* stepsState) {
+//if (!stepsValue) stepsValue = m_stepsValue;
+//if (!stepsState) stepsState = m_stepsState;
+//
+//}
 
-	if (!stepsValue) stepsValue = m_stepsValue;
-	if (!stepsState) stepsState = m_stepsState;
-	for (int i = 0; i < m_steps; i++) {
-		stepsValue[i] += stepsState[i] ? m_pwmValDiff : -m_pwmValDiff;
+
+bool IStairs::updateValuesBasic() {
+	if (!didTimePass(&m_timePwmValChange, m_pwmValTimePeriod)) return false;
+	for (unsigned i = 0; i < m_steps; i++) { // Analise if it can be made more efficient
+		m_stepsValue[i] += m_stepsState[i] ? m_pwmValDiff : -m_pwmValDiff; 
+		if (m_stepsValue[i] < 0)	m_stepsValue[i] = 0;
+		if (m_stepsValue[i] > 255)  m_stepsValue[i] = 255;
 	}
+	return true;
 }
 
 bool IStairs::didTimePass(unsigned* time, const unsigned period, bool update_time = true) {
 	if (*time + period < millis()) {
-		if (update_time) *time = millis();
+		if (update_time) { *time = millis(); }
+		return true;
 	}
+	return false;
+}
+
+bool IStairs::isPWMNeeded(){
+	for (unsigned i = 0; i < m_steps; i++) {
+		if (m_stepsValue[i] != 0 && m_stepsValue[i] != 255) return true;
+	}
+	return false;
 }

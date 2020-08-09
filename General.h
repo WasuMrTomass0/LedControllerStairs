@@ -13,8 +13,8 @@ namespace pwm {
 
     extern bool* pwmState;
     extern unsigned timeStamp;
-    //extern unsigned pwmLevel;
-    extern int pwmLevel;
+    extern unsigned pwmLevel;
+    //extern int pwmLevel; // Preffered for comparision with ledValues[s] in "void PWM"
 }
 
 namespace pin {

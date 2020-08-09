@@ -11,7 +11,7 @@ namespace pwm {
     bool* pwmState = new bool[SETT_STEPS];
     unsigned timeStamp = 0;
     // unsigned pwmLevel = 0;
-    int pwmLevel = 0;
+    unsigned pwmLevel = 0;
 }
 
 namespace pin {
