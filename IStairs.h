@@ -21,7 +21,7 @@ enum LedMode{
 
 class IStairs{
 public:
-	IStairs(LedMode, bool*, int*, const unsigned, const unsigned, const unsigned, const unsigned, const unsigned);
+	IStairs(LedMode, bool*, int*, const unsigned, const unsigned, const unsigned, const unsigned);
 	~IStairs() = default;
 	
 	virtual bool mainLoop() = 0;
@@ -60,11 +60,13 @@ protected:
 	const LedMode m_ledMode;
 	const unsigned m_steps;
 	const unsigned m_pwmValDiff; // Each value change
-	const unsigned m_pwmValTimePeriod; // Period beetwen changes
+	const unsigned m_pwmValTimePeriod; // Period beetwen pwm values changes
 	const unsigned m_nextStepOnPeriod; 
 	const unsigned m_nextStepOffPeriod;
-
-
+	/*	
+		Time neede dto light on step (0% to 100%):
+		255/m_pwmValDiff * m_pwmValTimePeriod
+	*/
 	bool* m_stepsState;
 	int* m_stepsValue;
 
@@ -72,7 +74,7 @@ protected:
 	unsigned m_timeDownstairs;
 	unsigned m_timeMvmnt;
 
-	unsigned m_timePwmValChange;
+	unsigned m_timePwmValChange; // Previos value change in pwm values - timestamp
 
 	bool m_updateRegisters;
 

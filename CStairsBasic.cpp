@@ -1,7 +1,12 @@
 #include "CStairsBasic.h"
 
 CStairsBasic::CStairsBasic(LedMode ledmode, bool* stepsState, int* stepsValue)
-	: IStairs(ledmode, stepsState, stepsValue)
+	: IStairs(ledmode, stepsState, stepsValue, 
+		/*pwmValDiff*/ 15, 
+		/*pwmValTimePeriod*/ 50,
+		/*nextStepOnPeriod*/ 330,
+		/*nextStepOffPeriod*/ 250
+	)
 	, m_ledTime(10000)
 	, m_currLedState(false)
 {
@@ -22,7 +27,6 @@ bool CStairsBasic::mainLoop() {
 		}
 	} else if (m_currLedState) {
 		if (didTimePass(&m_timeMvmnt, m_ledTime)){
-		//if (m_timeMvmnt + m_ledTime < millis()) {
 			switchAllTo(false);
 			m_currLedState = false;
 			m_updateRegisters = true;

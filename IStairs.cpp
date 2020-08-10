@@ -1,7 +1,7 @@
 #include "IStairs.h"
 
 IStairs::IStairs(LedMode ledmode, bool* stepsState, int* stepsValue,
-	const unsigned pwmValDiff, const unsigned pwmValTimePeriod, const unsigned timePwmValChange,
+	const unsigned pwmValDiff, const unsigned pwmValTimePeriod,
 	const unsigned nextStepOnPeriod, const unsigned nextStepOffPeriod) :
 	m_ledMode(ledmode)
 	, m_steps(SETT_STEPS)
@@ -15,7 +15,7 @@ IStairs::IStairs(LedMode ledmode, bool* stepsState, int* stepsValue,
 	, m_updateRegisters(false)
 	, m_pwmValDiff(pwmValDiff)
 	, m_pwmValTimePeriod(pwmValTimePeriod)
-	, m_timePwmValChange(timePwmValChange)
+	, m_timePwmValChange(0)
 	, m_nextStepOnPeriod(nextStepOnPeriod)
 	, m_nextStepOffPeriod(nextStepOffPeriod)
 {
