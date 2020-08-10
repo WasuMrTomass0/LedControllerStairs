@@ -52,13 +52,18 @@ void loop() {
     ledMode = g_Controller->get_ledMode();
 
     while (true) {
+        // if (changeMode()) break;
+
         if (inputUpstairs())   {g_Controller->setMoveUpstairs();}
         if (inputDownstairs()) {g_Controller->setMoveDownstairs();}
+        
         g_Controller->mainLoop();
+        
         if (g_Controller->get_updateRegisters()) {
-            if (ledMode == PWMOff) updateRegisters(ledState);
-            else PWM(ledValues);
-        }
+            if (ledMode == PWMOff) {
+                updateRegisters(ledState);
+            }
+        } else PWM(ledValues);
     }
 
 }

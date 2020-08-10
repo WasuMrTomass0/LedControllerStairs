@@ -46,6 +46,8 @@ void updateRegisters(bool*);
 
 void PWM(int*);
 
+bool didTimePass(unsigned*, const unsigned, bool);
+inline bool didTimePass(unsigned* time, const unsigned period) { return *time + period < millis(); }
 
 #endif // GENERAL_GENERAL_H
 

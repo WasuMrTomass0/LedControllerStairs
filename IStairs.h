@@ -4,6 +4,7 @@
 #define ISTAIRS_ISTAIRS_H
 
 #include "Settings.h"
+#include "General.h"
 
 #include <cstdlib> // malloc
 // #include <iostream>
@@ -52,8 +53,8 @@ protected:
 	void switchAllTo(bool);
 	//bool updateValuesBasic(int*, bool*); // Manages m_stepsValue based on m_stepsState // TODO Consider implementing
 	bool updateValuesBasic(); // Manages m_stepsValue based on m_stepsState
-	bool didTimePass(unsigned*, const unsigned, bool);
 	bool isPWMNeeded();
+	
 
 protected:
 	const LedMode m_ledMode;

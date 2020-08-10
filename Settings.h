@@ -7,7 +7,6 @@ unsigned millis();
 void delay(unsigned);
 
 #define SETT_STEPS 16
-
 #define LOW false
 #define HIGH true
 

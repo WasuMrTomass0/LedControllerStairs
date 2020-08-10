@@ -13,7 +13,6 @@ void CStairsBasic::resetData() {
 	m_currLedState = false;
 }
 
-
 bool CStairsBasic::mainLoop() {
 	if (m_downstairsOn || m_upstairsOn) {
 		if (!m_currLedState) {
@@ -22,11 +21,15 @@ bool CStairsBasic::mainLoop() {
 			m_updateRegisters = true;
 		}
 	} else if (m_currLedState) {
-		if (m_timeMvmnt + m_ledTime < millis()) {
+		if (didTimePass(&m_timeMvmnt, m_ledTime)){
+		//if (m_timeMvmnt + m_ledTime < millis()) {
 			switchAllTo(false);
 			m_currLedState = false;
 			m_updateRegisters = true;
 		}
 	}
+	if (m_ledMode == PWMOff) return true; // Code below only for active PWM
+	updateValuesBasic();
+	m_updateRegisters = isPWMNeeded();
 	return true;
 }

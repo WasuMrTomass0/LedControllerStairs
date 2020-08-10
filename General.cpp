@@ -34,8 +34,8 @@ void PWM(int* ledValues) {
     for (size_t i = 0; i < pwm::allLevels; i++) {
         pwm::timeStamp = millis();
         // pwm::pwmLevel = i * pwm::level;
-        pwm::pwmLevel = (i * 255) / pwm::allLevels;
-        for (size_t s = 0; s < SETT_STEPS; s++) pwm::pwmState[s] = ledValues[s] > pwm::pwmLevel;
+        pwm::pwmLevel = (i * 255) / (pwm::allLevels-1);
+        for (size_t s = 0; s < SETT_STEPS; s++) pwm::pwmState[s] = ledValues[s] >= pwm::pwmLevel; // TODO Check if last frame is filled with HIGH state for 100% fillment PWM
         while (pwm::timeStamp + pwm::framePeriod > millis()) {}
         updateRegisters(pwm::pwmState);
     }
@@ -55,4 +55,12 @@ void blink(unsigned times, unsigned period) {
         turnOnLeds(0);
         delay(period);
     }
+}
+
+bool didTimePass(unsigned* time, const unsigned period, bool update_time) {
+    if (*time + period < millis()) {
+        if (update_time) { *time = millis(); }
+        return true;
+    }
+    return false;
 }
