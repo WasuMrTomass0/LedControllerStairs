@@ -9,9 +9,7 @@ CStairsBasic::CStairsBasic(LedMode ledmode, bool* stepsState, int* stepsValue)
 	)
 	, m_ledTime(10000)
 	, m_currLedState(false)
-{
-	
-}
+{}
 
 void CStairsBasic::resetData() {
 	resetBaseClass();

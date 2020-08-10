@@ -28,7 +28,7 @@ IStairs::IStairs(LedMode ledmode, bool* stepsState, int* stepsValue,
 }
 
 void IStairs::resetBaseClass() {
-	for (size_t i = 0; i < m_steps; i++) {
+	for (unsigned i = 0; i < m_steps; i++) {
 		m_stepsState[i] = false;
 		m_stepsValue[i] = 0;
 	}

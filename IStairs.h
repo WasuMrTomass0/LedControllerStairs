@@ -7,7 +7,6 @@
 #include "General.h"
 
 #include <cstdlib> // malloc
-// #include <iostream>
 
 enum ManualMode {
 	ManualOn = 1,
