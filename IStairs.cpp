@@ -20,9 +20,9 @@ IStairs::IStairs(LedMode ledmode, bool* stepsState, int* stepsValue,
 	, m_nextStepOffPeriod(nextStepOffPeriod)
 {
 	// Memory will not be realeased. It is used to the end.
-	if (!stepsState) { m_stepsState = static_cast<bool*>(malloc(m_steps * sizeof(bool))); }
+	if (!stepsState) { m_stepsState = new bool[SETT_STEPS]; }
 	else m_stepsState = stepsState;
-	if(!stepsValue) { m_stepsValue = static_cast<int*>(malloc(m_steps * sizeof(int))); }
+	if(!stepsValue) { m_stepsValue = new int[SETT_STEPS]; }
 	else m_stepsValue = stepsValue;
 	resetBaseClass();
 }
