@@ -7,9 +7,11 @@
 #include "CStairsBasic.h"
 #include "General.h"
 
+#define DEBUG
+
 void setup() {  
 }
-unsigned int mode = 0;
+unsigned int mode = 1;
 
 bool* ledState = new bool[SETT_STEPS];
 int* ledValues = new int[SETT_STEPS];
@@ -41,18 +43,27 @@ void loop() {
 
     while (true) {
         // if (changeMode()) break;
+
         if (inputUpstairs())   {g_Controller->setMoveUpstairs();}
         if (inputDownstairs()) {g_Controller->setMoveDownstairs();}
         
-        g_Controller->mainLoop();
+        g_Controller->mainLoop(); // Remember to clear movement flags in all mainLoops!
         
         if (g_Controller->get_updateRegisters()) {
+
+            std::cout << "\n\t" << millis() << " [ms]";
+            std::cout << "\n\t";  g_Controller->printTab<bool>(ledState, false);
+            std::cout << "\n\t";  g_Controller->printTab<int>(ledValues, false);
+            std::cout << "\n";
+
             if (ledMode == PWMOff) {
                 updateRegisters(ledState);
-            }
-        } else PWM(ledValues);
+            } else PWM(ledValues);
+        } 
     }
 }
 
 int main() {
+    setup();
+    loop();
 }

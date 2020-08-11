@@ -15,5 +15,4 @@ void delay(unsigned);
 
 #define DEBUG
 
-
 #endif // SETTINGS_SETTINGS_H

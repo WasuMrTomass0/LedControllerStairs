@@ -6,6 +6,8 @@
 #include "Settings.h"
 #include "General.h"
 
+#include <iostream>
+
 enum ManualMode {
 	ManualOn = 1,
 	ManualOff = 0
@@ -34,7 +36,7 @@ public:
 
 	bool get_updateRegisters();
 
-/*
+
 #ifdef DEBUG
 	template<typename T>
 	void printTab(T* tab, bool newLine = true) {
@@ -43,7 +45,7 @@ public:
 		if (newLine) std::cout << '\n';
 	}
 #endif
-*/
+
 
 protected:
 	void resetBaseClass();

@@ -3,6 +3,10 @@
 
 #include "Settings.h"
 
+#include <string>
+#include <iostream>
+#include <Windows.h>
+
 // PWM Config
 namespace pwm {
     extern const unsigned allLevels;
@@ -25,11 +29,17 @@ namespace pin {
 
 
 inline bool inputUpstairs() {
-    return true;
+    return (GetKeyState('M') & 0x8000/*Check if high-order bit is set (1 << 15)*/);
+
+    /*std::string a;
+    std::cout << "\inputUpstairs: ";
+    std::cin >> a;
+    return a != "0";
+    return true;*/
 }
 
 inline bool inputDownstairs() {
-    return true;
+    return false;
     // return digitalRead();
 }
 
