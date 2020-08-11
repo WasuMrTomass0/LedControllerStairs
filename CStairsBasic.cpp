@@ -1,6 +1,6 @@
 #include "CStairsBasic.h"
 
-CStairsBasic::CStairsBasic(LedMode ledmode, bool* stepsState, int* stepsValue)
+CStairsBasic::CStairsBasic(PWMMode ledmode, bool* stepsState, int* stepsValue)
 	: IStairs(ledmode, stepsState, stepsValue, 
 		/*pwmValDiff*/ 15, 
 		/*pwmValTimePeriod*/ 50,

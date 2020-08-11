@@ -1,6 +1,6 @@
 #include "IStairs.h"
 
-IStairs::IStairs(LedMode ledmode, bool* stepsState, int* stepsValue,
+IStairs::IStairs(PWMMode ledmode, bool* stepsState, int* stepsValue,
 	const unsigned pwmValDiff, const unsigned pwmValTimePeriod,
 	const unsigned nextStepOnPeriod, const unsigned nextStepOffPeriod) :
 	m_ledMode(ledmode)

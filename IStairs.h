@@ -13,14 +13,14 @@ enum ManualMode {
 	ManualOff = 0
 };
 
-enum LedMode{
+enum PWMMode{
 	PWMOn = 1,
 	PWMOff = 0
 };
 
 class IStairs{
 public:
-	IStairs(LedMode, bool*, int*, const unsigned, const unsigned, const unsigned, const unsigned);
+	IStairs(PWMMode, bool*, int*, const unsigned, const unsigned, const unsigned, const unsigned);
 	~IStairs() = default;
 	
 	virtual bool mainLoop() = 0;
@@ -30,7 +30,7 @@ public:
 	virtual void setMoveDownstairs() { m_downstairsOn = true; m_timeDownstairs = m_timeMvmnt = millis(); }
 	
 	const unsigned get_steps() const {return m_steps;}
-	LedMode get_ledMode() const {return m_ledMode;}
+	PWMMode get_ledMode() const {return m_ledMode;}
 	bool* get_ledState() const  {return m_stepsState;}
 	int* get_ledValues() const {return m_stepsValue;}
 
@@ -56,7 +56,7 @@ protected:
 	
 
 protected:
-	const LedMode m_ledMode;
+	const PWMMode m_ledMode;
 	const unsigned m_steps;
 	const unsigned m_pwmValDiff; // Each value change
 	const unsigned m_pwmValTimePeriod; // Period beetwen pwm values changes

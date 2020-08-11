@@ -13,7 +13,7 @@ unsigned int mode = 0;
 bool* ledState = new bool[SETT_STEPS];
 int* ledValues = new int[SETT_STEPS];
 
-LedMode ledMode;
+PWMMode ledMode;
 ManualMode manualMode = ManualOff;
 
 IStairs* g_Controller;
@@ -21,7 +21,7 @@ CStairsBasic g_CBasicOff = CStairsBasic(PWMOff, ledState, ledValues);
 CStairsBasic g_CBasicOn = CStairsBasic(PWMOn, ledState, ledValues);
 
 void loop() {
-    switch (mode) // Select LedMode
+    switch (mode) // Select PWMMode
     {
     case 0: 
         g_Controller = &g_CBasicOff;

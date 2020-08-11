@@ -7,8 +7,8 @@
 class CStairsBasic: public IStairs{
 	
 public:
-	CStairsBasic(LedMode, bool*, int*);
-	//CStairsBasic(LedMode ledmode, bool* stepsState = nullptr, int* stepsValue = nullptr);
+	CStairsBasic(PWMMode, bool*, int*);
+	//CStairsBasic(PWMMode ledmode, bool* stepsState = nullptr, int* stepsValue = nullptr);
 	
 	void resetData();
 	bool mainLoop() override;
