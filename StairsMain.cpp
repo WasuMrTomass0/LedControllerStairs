@@ -64,6 +64,20 @@ void loop() {
 }
 
 int main() {
+
+    /*bool* tab = new bool[SETT_STEPS];
+    for (unsigned i = 0; i < SETT_STEPS; i++) tab[i] = i % 3;
+
+    std::cout << "\n"; for (unsigned i = 0; i < SETT_STEPS; i++) std::cout << tab[i] << " ";
+    shiftTab(tab, SETT_STEPS, 1);
+    std::cout << "\n"; for (unsigned i = 0; i < SETT_STEPS; i++) std::cout << tab[i] << " ";
+    shiftTab(tab, SETT_STEPS, 0);
+    std::cout << "\n"; for (unsigned i = 0; i < SETT_STEPS; i++) std::cout << tab[i] << " ";*/
+    //template<typename T>
+    //void shiftTab(T * tab, unsigned size, bool shiftUpByIndex)
+
+
+
     setup();
-    loop();
+    //loop();
 }

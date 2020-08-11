@@ -58,20 +58,20 @@ protected:
 protected:
 	const PWMMode m_ledMode;
 	const unsigned m_steps;
-	const unsigned m_pwmValDiff; // Each value change
+	const unsigned m_pwmValDiff;       // Each value change (PWM)
 	const unsigned m_pwmValTimePeriod; // Period beetwen pwm values changes
 	const unsigned m_nextStepOnPeriod; 
 	const unsigned m_nextStepOffPeriod;
 	/*	
-		Time neede dto light on step (0% to 100%):
+		Time needed to light one step (0% to 100%):
 		255/m_pwmValDiff * m_pwmValTimePeriod
 	*/
 	bool* m_stepsState;
 	int* m_stepsValue;
 
-	unsigned m_timeUpstairs;
-	unsigned m_timeDownstairs;
-	unsigned m_timeMvmnt;
+	unsigned m_timeUpstairs;	// Used for movement flag upstairs
+	unsigned m_timeDownstairs;	// Used for movement flag downstairs
+	unsigned m_timeMvmnt;		// Used for movement flag
 
 	unsigned m_timePwmValChange; // Previos value change in pwm values - timestamp
 

@@ -2,22 +2,22 @@
 
 IStairs::IStairs(PWMMode ledmode, bool* stepsState, int* stepsValue,
 	const unsigned pwmValDiff, const unsigned pwmValTimePeriod,
-	const unsigned nextStepOnPeriod, const unsigned nextStepOffPeriod) :
-	m_ledMode(ledmode)
-	, m_steps(SETT_STEPS)
+	const unsigned nextStepOnPeriod, const unsigned nextStepOffPeriod)
+	: m_steps(SETT_STEPS)
+	, m_ledMode(ledmode)
+	, m_pwmValDiff(pwmValDiff)
+	, m_pwmValTimePeriod(pwmValTimePeriod)
+	, m_nextStepOnPeriod(nextStepOnPeriod)
+	, m_nextStepOffPeriod(nextStepOffPeriod)
 	, m_timeUpstairs(0)
 	, m_timeDownstairs(0)
 	, m_timeMvmnt(0)
+	, m_timePwmValChange(0)
 	, m_downstairsOn(false)
 	, m_downstairsOff(false)
 	, m_upstairsOn(false)
 	, m_upstairsOff(false)
 	, m_updateRegisters(false)
-	, m_pwmValDiff(pwmValDiff)
-	, m_pwmValTimePeriod(pwmValTimePeriod)
-	, m_timePwmValChange(0)
-	, m_nextStepOnPeriod(nextStepOnPeriod)
-	, m_nextStepOffPeriod(nextStepOffPeriod)
 {
 	// Memory will not be realeased. It is used to the end.
 	if (!stepsState) { m_stepsState = new bool[SETT_STEPS]; }

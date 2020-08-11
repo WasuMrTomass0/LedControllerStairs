@@ -59,5 +59,13 @@ void PWM(int*);
 bool didTimePass(unsigned*, const unsigned, bool);
 inline bool didTimePass(unsigned* time, const unsigned period) { return *time + period < millis(); }
 
+void shiftTab(bool*, const unsigned, bool);
+
+//templateate <typename T>
+//void shiftTab(T*, unsigned, bool);
+
+//template<typename T, unsigned N>
+//void shiftArray(std::array);
+
 #endif // GENERAL_GENERAL_H
 

@@ -64,3 +64,26 @@ bool didTimePass(unsigned* time, const unsigned period, bool update_time) {
     }
     return false;
 }
+
+
+void shiftTab(bool* tab, const unsigned size, bool shiftUpByIndex) {
+    if (shiftUpByIndex)
+        for (unsigned i = size-1; i > 0; i--) tab[i] = tab[i-1];
+    else 
+        for (unsigned i = 0; i < size-1; i++) tab[i] = tab[i+1];    
+}
+//template<typename T>
+//void shiftTab(T* tab, unsigned size, bool shiftUpByIndex) {
+//    if (shiftUpByIndex) 
+//        for (unsigned i = size-2; i >= 0; i--) tab[i+1] = tab[i];
+//    else 
+//        for (unsigned i = 0; i < size-1; i++) tab[i] = tab[i+1];
+//}
+
+//template<typename T, unsigned N>
+//void shiftArray(std::array<T, N> & arr, bool shiftUpByIndex) {
+//    if (shiftUpByIndex)
+//        for (unsigned i = arr.size() - 2; i >= 0; i--) arr[i + 1] = arr[i];
+//    else 
+//        for (unsigned i = 0; i < arr.size() - 1; i++) arr[i] = arr[i + 1];
+//}
