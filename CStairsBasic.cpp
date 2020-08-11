@@ -4,10 +4,10 @@ CStairsBasic::CStairsBasic(PWMMode ledmode, bool* stepsState, int* stepsValue)
 	: IStairs(ledmode, stepsState, stepsValue, 
 		/*pwmValDiff*/ 15, 
 		/*pwmValTimePeriod*/ 50,
-		/*nextStepOnPeriod*/ 330,
-		/*nextStepOffPeriod*/ 250
+		/*nextStepOnPeriod*/ 0, // Unused here
+		/*nextStepOffPeriod*/ 0 // Unused here
 	)
-	, m_ledTime(10000)
+	, m_ledTime(10000) // How long does leds are ON?
 	, m_currLedState(false)
 {}
 
@@ -30,6 +30,7 @@ bool CStairsBasic::mainLoop() {
 			m_updateRegisters = true;
 		}
 	}
+	m_downstairsOn = m_upstairsOn = false; // Clear flags
 	if (m_ledMode == PWMOff) return true; // Code below only for active PWM
 	updateValuesBasic();
 	m_updateRegisters = isPWMNeeded();
