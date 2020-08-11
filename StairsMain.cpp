@@ -1,10 +1,11 @@
-﻿#include <iostream>
+﻿/*
+#include "Arduino.h"
+#include "src/utilities/CStairsBasic.h"
+#include "src/utilities/General.h"
+*/
 
 #include "CStairsBasic.h"
 #include "General.h"
-
-int main(){
-}
 
 void setup() {  
 }
@@ -51,4 +52,7 @@ void loop() {
             }
         } else PWM(ledValues);
     }
+}
+
+int main() {
 }

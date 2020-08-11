@@ -2,6 +2,7 @@
 #ifndef SETTINGS_SETTINGS_H
 #define SETTINGS_SETTINGS_H
 
+// Only in VS
 void digitalWrite(unsigned, bool);
 unsigned millis();
 void delay(unsigned);

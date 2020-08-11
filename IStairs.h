@@ -6,8 +6,6 @@
 #include "Settings.h"
 #include "General.h"
 
-#include <cstdlib> // malloc
-
 enum ManualMode {
 	ManualOn = 1,
 	ManualOff = 0
