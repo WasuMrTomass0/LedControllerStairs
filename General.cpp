@@ -1,16 +1,13 @@
 #include "General.h"
 
 namespace pwm {
-    // Led PWM levels
-    const unsigned allLevels = 20;
-
-    const unsigned freq = 50; // Frequency [Hz]
+    const unsigned allLevels = 20;  // Led PWM levels
+    const unsigned freq = 50;       // Frequency [Hz]
     const unsigned framePeriod = 1000 / freq / allLevels; // Single PWM frame preiod [ms]
     const unsigned level = 255 / allLevels;
 
     bool* pwmState = new bool[SETT_STEPS];
     unsigned timeStamp = 0;
-    // unsigned pwmLevel = 0;
     unsigned pwmLevel = 0;
 }
 
@@ -64,3 +61,38 @@ bool didTimePass(unsigned* time, const unsigned period, bool update_time) {
     }
     return false;
 }
+
+
+void shiftTab(bool* tab, const unsigned size, bool shiftUpByIndex) {
+    if (shiftUpByIndex)
+        for (unsigned i = size-1; i > 0; i--) tab[i] = tab[i-1];
+    else 
+        for (unsigned i = 0; i < size-1; i++) tab[i] = tab[i+1];    
+}
+
+bool isAllEqualTo(bool* tab, const unsigned size, bool state) {
+    for (unsigned i = 0; i < size; i++) {
+        if (tab[i] != state) return false;
+    }
+    return true;
+}
+
+void orBool(bool* tab1, bool* tab2, bool* result, const unsigned size) {
+    for (unsigned i = 0; i < size; i++) result[i] = tab1[i] || tab2[i];
+}
+
+//template<typename T>
+//void shiftTab(T* tab, unsigned size, bool shiftUpByIndex) {
+//    if (shiftUpByIndex) 
+//        for (unsigned i = size-2; i >= 0; i--) tab[i+1] = tab[i];
+//    else 
+//        for (unsigned i = 0; i < size-1; i++) tab[i] = tab[i+1];
+//}
+
+//template<typename T, unsigned N>
+//void shiftArray(std::array<T, N> & arr, bool shiftUpByIndex) {
+//    if (shiftUpByIndex)
+//        for (unsigned i = arr.size() - 2; i >= 0; i--) arr[i + 1] = arr[i];
+//    else 
+//        for (unsigned i = 0; i < arr.size() - 1; i++) arr[i] = arr[i + 1];
+//}

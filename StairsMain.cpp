@@ -1,15 +1,11 @@
-﻿/*
-#include "Arduino.h"
+﻿#include "Arduino.h"
 #include "src/utilities/CStairsBasic.h"
+#include "src/utilities/CStairsSimpleWave.h"
 #include "src/utilities/General.h"
-*/
-
-#include "CStairsBasic.h"
-#include "General.h"
 
 void setup() {  
 }
-unsigned int mode = 0;
+unsigned int mode = 3;
 
 bool* ledState = new bool[SETT_STEPS];
 int* ledValues = new int[SETT_STEPS];
@@ -20,39 +16,47 @@ ManualMode manualMode = ManualOff;
 IStairs* g_Controller;
 CStairsBasic g_CBasicOff = CStairsBasic(PWMOff, ledState, ledValues);
 CStairsBasic g_CBasicOn = CStairsBasic(PWMOn, ledState, ledValues);
+CStairsSimpleWave g_CWaveOff = CStairsSimpleWave(PWMOff, ledState, ledValues);
+CStairsSimpleWave g_CWaveOn = CStairsSimpleWave(PWMOn, ledState, ledValues);
 
 void loop() {
-    switch (mode) // Select PWMMode
-    {
+    manualMode = readManualMode() ? ManualOn : ManualOff;
+    if (manualMode == ManualOn) {
+        turnOnLeds(SETT_STEPS, true);
+        while (readManualMode()) {}
+        return;
+    }
+
+    switch (mode){
     case 0: 
-        g_Controller = &g_CBasicOff;
-        break;
+        g_Controller = &g_CBasicOff; break;
     case 1:
-        g_Controller = &g_CBasicOn;
-        break;
+        g_Controller = &g_CBasicOn; break;
+    case 2:
+        g_Controller = &g_CWaveOff; break;
+    case 3:
+        g_Controller = &g_CWaveOn; break;
     default:
-        g_Controller = &g_CBasicOff;
-        mode = 0;
-        break;
-    }    
+        mode = 0; return;
+    }
     g_Controller->resetData();
 
     ledMode = g_Controller->get_ledMode();
 
     while (true) {
-        // if (changeMode()) break;
+        if (readManualMode()) return;
+        if (changeMode()) break;
+
         if (inputUpstairs())   {g_Controller->setMoveUpstairs();}
         if (inputDownstairs()) {g_Controller->setMoveDownstairs();}
         
-        g_Controller->mainLoop();
+        if (!g_Controller->mainLoop()) break; // Remember to clear movement flags in all mainLoops!
         
         if (g_Controller->get_updateRegisters()) {
-            if (ledMode == PWMOff) {
-                updateRegisters(ledState);
-            }
-        } else PWM(ledValues);
+            if (ledMode == PWMOff) updateRegisters(ledState);
+            else PWM(ledValues); 
+        } 
     }
-}
-
-int main() {
+    while (changeMode());
+    mode++;
 }

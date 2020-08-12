@@ -14,7 +14,6 @@ namespace pwm {
     extern bool* pwmState;
     extern unsigned timeStamp;
     extern unsigned pwmLevel;
-    //extern int pwmLevel; // Preffered for comparision with ledValues[s] in "void PWM"
 }
 
 namespace pin {
@@ -23,19 +22,22 @@ namespace pin {
     extern const unsigned SER;
 }
 
+// --- // --- // --- // --- // --- // --- // --- // --- // --- // --- // --- // --- // --- // --- //
 
 inline bool inputUpstairs() {
-    return true;
+    return false;
 }
 
 inline bool inputDownstairs() {
-    return true;
-    // return digitalRead();
+    return false;
 }
 
 inline bool readManualMode() {
     return false;
-    //return (DigitalRead(xx, XX));
+}
+
+inline bool changeMode() {
+    return false;
 }
 
 void turnOnLeds(unsigned, bool);
@@ -49,5 +51,10 @@ void PWM(int*);
 bool didTimePass(unsigned*, const unsigned, bool);
 inline bool didTimePass(unsigned* time, const unsigned period) { return *time + period < millis(); }
 
-#endif // GENERAL_GENERAL_H
+void shiftTab(bool*, const unsigned, bool);
 
+bool isAllEqualTo(bool*, const unsigned, bool);
+
+void orBool(bool*, bool*, bool*, const unsigned);
+
+#endif // GENERAL_GENERAL_H
