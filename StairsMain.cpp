@@ -60,12 +60,6 @@ void loop() {
         if (!g_Controller->mainLoop()) break; // Remember to clear movement flags in all mainLoops!
         
         if (g_Controller->get_updateRegisters()) {
-
-            /*std::cout << "\n\t" << millis() << " [ms]";
-            std::cout << "\n\t";  g_Controller->printTab<bool>(ledState, false);
-            std::cout << "\n\t";  g_Controller->printTab<int>(ledValues, false);
-            std::cout << "\n";*/
-
             if (ledMode == PWMOff) {
                 std::cout << "\n";  g_Controller->printTab<bool>(ledState, false);
                 updateRegisters(ledState);
@@ -77,23 +71,4 @@ void loop() {
     }
     while (changeMode());
     mode++;
-}
-
-int main() {
-
-    /*bool* tab = new bool[SETT_STEPS];
-    for (unsigned i = 0; i < SETT_STEPS; i++) tab[i] = i % 3;
-
-    std::cout << "\n"; for (unsigned i = 0; i < SETT_STEPS; i++) std::cout << tab[i] << " ";
-    shiftTab(tab, SETT_STEPS, 1);
-    std::cout << "\n"; for (unsigned i = 0; i < SETT_STEPS; i++) std::cout << tab[i] << " ";
-    shiftTab(tab, SETT_STEPS, 0);
-    std::cout << "\n"; for (unsigned i = 0; i < SETT_STEPS; i++) std::cout << tab[i] << " ";*/
-    //template<typename T>
-    //void shiftTab(T * tab, unsigned size, bool shiftUpByIndex)
-
-
-
-    setup();
-    while(true) loop();
 }

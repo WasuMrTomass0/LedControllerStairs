@@ -17,9 +17,6 @@ CStairsSimpleWave::CStairsSimpleWave(PWMMode ledmode, bool* stepsState, int* ste
 	resetData();
 }
 
-
-//m_ledStateUpstairs
-
 void CStairsSimpleWave::resetData() {
 	resetBaseClass();
 	m_timeShiftUpstairs = 0;

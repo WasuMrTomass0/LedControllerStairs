@@ -39,16 +39,13 @@ void IStairs::resetBaseClass() {
 }
 
 void IStairs::switchAllTo(bool state) {
-	//int val = state ? 255 : 0;
 	for (unsigned i = 0; i < m_steps; i++) {
 		m_stepsState[i] = state;
-		//m_stepsValue[i] = val;
 	}
 }
 
 bool IStairs::get_updateRegisters() {
 	bool state = m_updateRegisters;
-	//if(m_ledMode == PWMOff) m_updateRegisters = false;
 	m_updateRegisters = false;
 	return state;
 }

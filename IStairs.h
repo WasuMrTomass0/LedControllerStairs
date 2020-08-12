@@ -37,7 +37,6 @@ public:
 
 	bool get_updateRegisters();
 
-
 #ifdef DEBUG
 	template<typename T>
 	void printTab(T* tab, bool newLine = true) {
@@ -47,11 +46,9 @@ public:
 	}
 #endif
 
-
 protected:
 	void resetBaseClass();
 	void switchAllTo(bool);
-	//bool updateValuesBasic(int*, bool*); // Manages m_stepsValue based on m_stepsState // TODO Consider implementing
 	bool updateValuesBasic(); // Manages m_stepsValue based on m_stepsState
 	bool isPWMNeeded();
 	
@@ -66,6 +63,7 @@ protected:
 	
 	/*	Time needed to light one step (0% to 100%):
 		255/m_pwmValDiff * m_pwmValTimePeriod */
+	
 	bool* m_stepsState;
 	int* m_stepsValue;
 

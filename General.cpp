@@ -1,16 +1,13 @@
 #include "General.h"
 
 namespace pwm {
-    // Led PWM levels
-    const unsigned allLevels = 20;
-
-    const unsigned freq = 50; // Frequency [Hz]
+    const unsigned allLevels = 20;  // Led PWM levels
+    const unsigned freq = 50;       // Frequency [Hz]
     const unsigned framePeriod = 1000 / freq / allLevels; // Single PWM frame preiod [ms]
     const unsigned level = 255 / allLevels;
 
     bool* pwmState = new bool[SETT_STEPS];
     unsigned timeStamp = 0;
-    // unsigned pwmLevel = 0;
     unsigned pwmLevel = 0;
 }
 

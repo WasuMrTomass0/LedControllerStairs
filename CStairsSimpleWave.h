@@ -21,8 +21,6 @@ protected:
 	bool* m_ledStateUpstairs;
 	bool* m_ledStateDownstairs;
 
-	
-
 };
 
 #endif //CSTAIRSSIMPLEWAVE_CSTAIRSSIMPLEWAVE_H
