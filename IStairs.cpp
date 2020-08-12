@@ -2,13 +2,13 @@
 
 IStairs::IStairs(PWMMode ledmode, bool* stepsState, int* stepsValue,
 	const unsigned pwmValDiff, const unsigned pwmValTimePeriod,
-	const unsigned ledTime, const unsigned nextStepSwitchPeriod)
+	const unsigned ledTime, const unsigned stepShiftPeriod)
 	: m_steps(SETT_STEPS)
 	, m_ledMode(ledmode)
 	, m_ledTime(ledTime)
 	, m_pwmValDiff(pwmValDiff)
 	, m_pwmValTimePeriod(pwmValTimePeriod)
-	, m_nextStepSwitchPeriod(nextStepSwitchPeriod)
+	, m_stepShiftPeriod(stepShiftPeriod)
 	, m_timeUpstairs(0)
 	, m_timeDownstairs(0)
 	, m_timeMvmnt(0)

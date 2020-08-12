@@ -62,13 +62,10 @@ protected:
 	const unsigned int m_ledTime;		// How long are leds are ON?
 	const unsigned m_pwmValDiff;		// Each value change (PWM)
 	const unsigned m_pwmValTimePeriod;	// Period beetwen pwm values changes
-	//const unsigned m_nextStepOnPeriod; 
-	//const unsigned m_nextStepOffPeriod;
-	const unsigned m_nextStepSwitchPeriod;
-	/*	
-		Time needed to light one step (0% to 100%):
-		255/m_pwmValDiff * m_pwmValTimePeriod
-	*/
+	const unsigned m_stepShiftPeriod;
+	
+	/*	Time needed to light one step (0% to 100%):
+		255/m_pwmValDiff * m_pwmValTimePeriod */
 	bool* m_stepsState;
 	int* m_stepsValue;
 

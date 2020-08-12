@@ -51,7 +51,7 @@ void loop() {
     ledMode = g_Controller->get_ledMode();
 
     while (true) {
-        if (readManualMode()) break;
+        if (readManualMode()) return;
         if (changeMode()) break;
 
         if (inputUpstairs())   {g_Controller->setMoveUpstairs();}

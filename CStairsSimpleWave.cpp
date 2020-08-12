@@ -5,16 +5,12 @@ CStairsSimpleWave::CStairsSimpleWave(PWMMode ledmode, bool* stepsState, int* ste
 		/*pwmValDiff*/ 15,
 		/*pwmValTimePeriod*/ 50,
 		/*ledTime*/ 5000,
-		/*nextStepSwitchPeriod*/ 300
+		/*m_stepShiftPeriod*/ 300
 	)
-	, m_timeOnStepUpstairs(0)
-	, m_timeOnStepDownstairs(0)
-	, m_timeOffStepUpstairs(0)
-	, m_timeOffStepDownstairs(0)
+	, m_timeShiftUpstairs(0)
+	, m_timeShiftDownstairs(0)
 	, m_timeUpstairsOff(0)
 	, m_timeDownstairsOff(0)
-	, m_currLedStateUpstairs(false)
-	, m_currLedStateDownstairs(false)
 {
 	m_ledStateUpstairs = new bool[SETT_STEPS];
 	m_ledStateDownstairs = new bool[SETT_STEPS];
@@ -26,10 +22,8 @@ CStairsSimpleWave::CStairsSimpleWave(PWMMode ledmode, bool* stepsState, int* ste
 
 void CStairsSimpleWave::resetData() {
 	resetBaseClass();
-	m_timeOnStepUpstairs = 0;
-	m_timeOnStepDownstairs = 0;
-	m_timeOffStepUpstairs = 0;
-	m_timeOffStepDownstairs = 0;
+	m_timeShiftUpstairs = 0;
+	m_timeShiftDownstairs = 0;
 	for (unsigned i = 0; i < SETT_STEPS; i++) {
 		m_ledStateUpstairs[i] = false;
 		m_ledStateDownstairs[i] = false;
@@ -39,7 +33,7 @@ void CStairsSimpleWave::resetData() {
 
 bool CStairsSimpleWave::mainLoop() {
 	if (m_upstairsOn || m_upstairsOff) {
-		if (didTimePass(&m_timeOnStepUpstairs, m_nextStepSwitchPeriod, true)) {
+		if (didTimePass(&m_timeShiftUpstairs, m_stepShiftPeriod, true)) {
 			if (m_ledMode == PWMOff) {
 				m_updateRegisters = !isAllEqualTo(m_stepsState, SETT_STEPS, true);
 			}
@@ -59,7 +53,7 @@ bool CStairsSimpleWave::mainLoop() {
 	}
 
 	if (m_downstairsOn || m_downstairsOff) {
-		if (didTimePass(&m_timeOnStepDownstairs, m_nextStepSwitchPeriod, true)) {
+		if (didTimePass(&m_timeShiftDownstairs, m_stepShiftPeriod, true)) {
 			if (m_ledMode == PWMOff) {
 				m_updateRegisters = !isAllEqualTo(m_stepsState, SETT_STEPS, true);
 			}
