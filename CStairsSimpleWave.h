@@ -25,6 +25,9 @@ protected:
 	bool* m_ledStateUpstairs;
 	bool* m_ledStateDownstairs;
 
+	bool m_currLedStateUpstairs;  // Current led state for new steps
+	bool m_currLedStateDownstairs;  // Current led state for new steps
+
 };
 
 #endif //CSTAIRSSIMPLEWAVE_CSTAIRSSIMPLEWAVE_H

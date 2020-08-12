@@ -27,7 +27,7 @@ public:
 	virtual bool mainLoop() = 0;
 	virtual void resetData() = 0;
 
-	virtual void setMoveUpstairs()   { m_upstairsOn = true;   m_timeUpstairs = m_timeMvmnt = millis(); }
+	virtual void setMoveUpstairs() { m_upstairsOn = true;   m_timeUpstairs = m_timeMvmnt = millis(); }
 	virtual void setMoveDownstairs() { m_downstairsOn = true; m_timeDownstairs = m_timeMvmnt = millis(); }
 	
 	const unsigned get_steps() const {return m_steps;}

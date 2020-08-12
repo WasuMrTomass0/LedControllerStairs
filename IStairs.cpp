@@ -1,16 +1,13 @@
 #include "IStairs.h"
 
 IStairs::IStairs(PWMMode ledmode, bool* stepsState, int* stepsValue,
-	const unsigned pwmValDiff, const unsigned pwmValTimePeriod, const unsigned ledTime,
-	//const unsigned nextStepOnPeriod, const unsigned nextStepOffPeriod)
-	const unsigned nextStepSwitchPeriod)
+	const unsigned pwmValDiff, const unsigned pwmValTimePeriod,
+	const unsigned ledTime, const unsigned nextStepSwitchPeriod)
 	: m_steps(SETT_STEPS)
 	, m_ledMode(ledmode)
 	, m_ledTime(ledTime)
 	, m_pwmValDiff(pwmValDiff)
 	, m_pwmValTimePeriod(pwmValTimePeriod)
-	//, m_nextStepOnPeriod(nextStepOnPeriod)
-	//, m_nextStepOffPeriod(nextStepOffPeriod)
 	, m_nextStepSwitchPeriod(nextStepSwitchPeriod)
 	, m_timeUpstairs(0)
 	, m_timeDownstairs(0)
@@ -51,7 +48,8 @@ void IStairs::switchAllTo(bool state) {
 
 bool IStairs::get_updateRegisters() {
 	bool state = m_updateRegisters;
-	if(m_ledMode == PWMOff) m_updateRegisters = false;
+	//if(m_ledMode == PWMOff) m_updateRegisters = false;
+	m_updateRegisters = false;
 	return state;
 }
 

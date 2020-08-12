@@ -29,23 +29,19 @@ namespace pin {
 
 
 inline bool inputUpstairs() {
-    return (GetKeyState('M') & 0x8000/*Check if high-order bit is set (1 << 15)*/);
-
-    /*std::string a;
-    std::cout << "\inputUpstairs: ";
-    std::cin >> a;
-    return a != "0";
-    return true;*/
+    return (GetKeyState('U') & 0x8000/*Check if high-order bit is set (1 << 15)*/);
 }
 
 inline bool inputDownstairs() {
-    return false;
-    // return digitalRead();
+    return (GetKeyState('D') & 0x8000/*Check if high-order bit is set (1 << 15)*/);
 }
 
 inline bool readManualMode() {
-    return false;
-    //return (DigitalRead(xx, XX));
+    return (GetKeyState('M') & 0x8000/*Check if high-order bit is set (1 << 15)*/);
+}
+
+inline bool changeMode() {
+    return (GetKeyState('C') & 0x8000/*Check if high-order bit is set (1 << 15)*/);
 }
 
 void turnOnLeds(unsigned, bool);

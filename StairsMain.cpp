@@ -4,14 +4,15 @@
 #include "src/utilities/General.h"
 */
 
-#include "CStairsBasic.h"
 #include "General.h"
+#include "CStairsBasic.h"
+#include "CStairsSimpleWave.h"
 
 #define DEBUG
 
 void setup() {  
 }
-unsigned int mode = 1;
+unsigned int mode = 3;
 
 bool* ledState = new bool[SETT_STEPS];
 int* ledValues = new int[SETT_STEPS];
@@ -22,27 +23,36 @@ ManualMode manualMode = ManualOff;
 IStairs* g_Controller;
 CStairsBasic g_CBasicOff = CStairsBasic(PWMOff, ledState, ledValues);
 CStairsBasic g_CBasicOn = CStairsBasic(PWMOn, ledState, ledValues);
+CStairsSimpleWave g_CWaveOff = CStairsSimpleWave(PWMOff, ledState, ledValues);
+CStairsSimpleWave g_CWaveOn = CStairsSimpleWave(PWMOn, ledState, ledValues);
 
 void loop() {
-    switch (mode) // Select PWMMode
-    {
+    manualMode = readManualMode() ? ManualOn : ManualOff;
+    if (manualMode == ManualOn) {
+        turnOnLeds(SETT_STEPS, true);
+        while (readManualMode()) {}
+        return;
+    }
+
+    switch (mode){
     case 0: 
-        g_Controller = &g_CBasicOff;
-        break;
+        g_Controller = &g_CBasicOff; break;
     case 1:
-        g_Controller = &g_CBasicOn;
-        break;
+        g_Controller = &g_CBasicOn; break;
+    case 2:
+        g_Controller = &g_CWaveOff; break;
+    case 3:
+        g_Controller = &g_CWaveOn; break;
     default:
-        g_Controller = &g_CBasicOff;
-        mode = 0;
-        break;
-    }    
+        mode = 0; return;
+    }
     g_Controller->resetData();
 
     ledMode = g_Controller->get_ledMode();
 
     while (true) {
-        // if (changeMode()) break;
+        if (readManualMode()) break;
+        if (changeMode()) break;
 
         if (inputUpstairs())   {g_Controller->setMoveUpstairs();}
         if (inputDownstairs()) {g_Controller->setMoveDownstairs();}
@@ -51,16 +61,22 @@ void loop() {
         
         if (g_Controller->get_updateRegisters()) {
 
-            std::cout << "\n\t" << millis() << " [ms]";
+            /*std::cout << "\n\t" << millis() << " [ms]";
             std::cout << "\n\t";  g_Controller->printTab<bool>(ledState, false);
             std::cout << "\n\t";  g_Controller->printTab<int>(ledValues, false);
-            std::cout << "\n";
+            std::cout << "\n";*/
 
             if (ledMode == PWMOff) {
+                std::cout << "\n";  g_Controller->printTab<bool>(ledState, false);
                 updateRegisters(ledState);
-            } else PWM(ledValues);
+            } else { 
+                PWM(ledValues); 
+                std::cout << "\n";  g_Controller->printTab<int>(ledValues, false); 
+            }
         } 
     }
+    while (changeMode());
+    mode++;
 }
 
 int main() {
@@ -79,5 +95,5 @@ int main() {
 
 
     setup();
-    //loop();
+    while(true) loop();
 }
