@@ -61,6 +61,10 @@ inline bool didTimePass(unsigned* time, const unsigned period) { return *time + 
 
 void shiftTab(bool*, const unsigned, bool);
 
+bool isAllEqualTo(bool*, const unsigned, bool);
+
+void orBool(bool*, bool*, bool*, const unsigned);
+
 //templateate <typename T>
 //void shiftTab(T*, unsigned, bool);
 

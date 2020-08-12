@@ -47,7 +47,7 @@ void loop() {
         if (inputUpstairs())   {g_Controller->setMoveUpstairs();}
         if (inputDownstairs()) {g_Controller->setMoveDownstairs();}
         
-        g_Controller->mainLoop(); // Remember to clear movement flags in all mainLoops!
+        if (!g_Controller->mainLoop()) break; // Remember to clear movement flags in all mainLoops!
         
         if (g_Controller->get_updateRegisters()) {
 

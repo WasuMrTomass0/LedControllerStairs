@@ -72,6 +72,18 @@ void shiftTab(bool* tab, const unsigned size, bool shiftUpByIndex) {
     else 
         for (unsigned i = 0; i < size-1; i++) tab[i] = tab[i+1];    
 }
+
+bool isAllEqualTo(bool* tab, const unsigned size, bool state) {
+    for (unsigned i = 0; i < size; i++) {
+        if (tab[i] != state) return false;
+    }
+    return true;
+}
+
+void orBool(bool* tab1, bool* tab2, bool* result, const unsigned size) {
+    for (unsigned i = 0; i < size; i++) result[i] = tab1[i] || tab2[i];
+}
+
 //template<typename T>
 //void shiftTab(T* tab, unsigned size, bool shiftUpByIndex) {
 //    if (shiftUpByIndex) 

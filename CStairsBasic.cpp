@@ -4,10 +4,10 @@ CStairsBasic::CStairsBasic(PWMMode ledmode, bool* stepsState, int* stepsValue)
 	: IStairs(ledmode, stepsState, stepsValue, 
 		/*pwmValDiff*/ 15, 
 		/*pwmValTimePeriod*/ 50,
-		/*nextStepOnPeriod*/ 0, // Unused here
-		/*nextStepOffPeriod*/ 0 // Unused here
+		/*nextStepSwitchPeriod*/ 0,
+		/*ledTime*/ 10000
 	)
-	, m_ledTime(10000) // How long does leds are ON?
+	//, m_ledTime(10000) // How long are leds are ON?
 	, m_currLedState(false)
 {
 	resetData();

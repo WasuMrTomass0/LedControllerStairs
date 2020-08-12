@@ -7,6 +7,7 @@
 #include "General.h"
 
 #include <iostream>
+#include <sstream>
 
 enum ManualMode {
 	ManualOn = 1,
@@ -58,10 +59,12 @@ protected:
 protected:
 	const PWMMode m_ledMode;
 	const unsigned m_steps;
-	const unsigned m_pwmValDiff;       // Each value change (PWM)
-	const unsigned m_pwmValTimePeriod; // Period beetwen pwm values changes
-	const unsigned m_nextStepOnPeriod; 
-	const unsigned m_nextStepOffPeriod;
+	const unsigned int m_ledTime;		// How long are leds are ON?
+	const unsigned m_pwmValDiff;		// Each value change (PWM)
+	const unsigned m_pwmValTimePeriod;	// Period beetwen pwm values changes
+	//const unsigned m_nextStepOnPeriod; 
+	//const unsigned m_nextStepOffPeriod;
+	const unsigned m_nextStepSwitchPeriod;
 	/*	
 		Time needed to light one step (0% to 100%):
 		255/m_pwmValDiff * m_pwmValTimePeriod
