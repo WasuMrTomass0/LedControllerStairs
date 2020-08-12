@@ -1,13 +1,9 @@
 // Interface for all stair controll classes
-
 #ifndef ISTAIRS_ISTAIRS_H
 #define ISTAIRS_ISTAIRS_H
 
 #include "Settings.h"
 #include "General.h"
-
-#include <iostream>
-#include <sstream>
 
 enum ManualMode {
 	ManualOn = 1,
@@ -37,22 +33,12 @@ public:
 
 	bool get_updateRegisters();
 
-#ifdef DEBUG
-	template<typename T>
-	void printTab(T* tab, bool newLine = true) {
-		if (newLine) std::cout << '\n';
-		for (size_t i = 0; i < get_steps(); i++) std::cout << static_cast<T>(tab[i])<<' ';
-		if (newLine) std::cout << '\n';
-	}
-#endif
-
 protected:
 	void resetBaseClass();
 	void switchAllTo(bool);
 	bool updateValuesBasic(); // Manages m_stepsValue based on m_stepsState
 	bool isPWMNeeded();
 	
-
 protected:
 	const PWMMode m_ledMode;
 	const unsigned m_steps;

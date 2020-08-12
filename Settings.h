@@ -2,12 +2,7 @@
 #ifndef SETTINGS_SETTINGS_H
 #define SETTINGS_SETTINGS_H
 
-// #include "Arduino.h"
-
-// Only in VS
-void digitalWrite(unsigned, bool);
-unsigned millis();
-void delay(unsigned);
+#include "Arduino.h"
 
 #define SETT_STEPS 16
 #define LOW false

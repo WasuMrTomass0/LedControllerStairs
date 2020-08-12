@@ -3,10 +3,6 @@
 
 #include "Settings.h"
 
-#include <string>
-#include <iostream>
-#include <Windows.h>
-
 // PWM Config
 namespace pwm {
     extern const unsigned allLevels;
@@ -18,7 +14,6 @@ namespace pwm {
     extern bool* pwmState;
     extern unsigned timeStamp;
     extern unsigned pwmLevel;
-    //extern int pwmLevel; // Preffered for comparision with ledValues[s] in "void PWM"
 }
 
 namespace pin {
@@ -30,19 +25,19 @@ namespace pin {
 // --- // --- // --- // --- // --- // --- // --- // --- // --- // --- // --- // --- // --- // --- //
 
 inline bool inputUpstairs() {
-    return (GetKeyState('U') & 0x8000/*Check if high-order bit is set (1 << 15)*/);
+    return false;
 }
 
 inline bool inputDownstairs() {
-    return (GetKeyState('D') & 0x8000/*Check if high-order bit is set (1 << 15)*/);
+    return false;
 }
 
 inline bool readManualMode() {
-    return (GetKeyState('M') & 0x8000/*Check if high-order bit is set (1 << 15)*/);
+    return false;
 }
 
 inline bool changeMode() {
-    return (GetKeyState('C') & 0x8000/*Check if high-order bit is set (1 << 15)*/);
+    return false;
 }
 
 void turnOnLeds(unsigned, bool);
@@ -62,11 +57,4 @@ bool isAllEqualTo(bool*, const unsigned, bool);
 
 void orBool(bool*, bool*, bool*, const unsigned);
 
-//templateate <typename T>
-//void shiftTab(T*, unsigned, bool);
-
-//template<typename T, unsigned N>
-//void shiftArray(std::array);
-
 #endif // GENERAL_GENERAL_H
-

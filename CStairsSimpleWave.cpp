@@ -27,7 +27,6 @@ void CStairsSimpleWave::resetData() {
 	}
 }
 
-
 bool CStairsSimpleWave::mainLoop() {
 	if (m_upstairsOn || m_upstairsOff) {
 		if (didTimePass(&m_timeShiftUpstairs, m_stepShiftPeriod, true)) {

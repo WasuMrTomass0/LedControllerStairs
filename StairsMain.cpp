@@ -1,14 +1,7 @@
-﻿/*
-#include "Arduino.h"
+﻿#include "Arduino.h"
 #include "src/utilities/CStairsBasic.h"
+#include "src/utilities/CStairsSimpleWave.h"
 #include "src/utilities/General.h"
-*/
-
-#include "General.h"
-#include "CStairsBasic.h"
-#include "CStairsSimpleWave.h"
-
-#define DEBUG
 
 void setup() {  
 }
@@ -60,13 +53,8 @@ void loop() {
         if (!g_Controller->mainLoop()) break; // Remember to clear movement flags in all mainLoops!
         
         if (g_Controller->get_updateRegisters()) {
-            if (ledMode == PWMOff) {
-                std::cout << "\n";  g_Controller->printTab<bool>(ledState, false);
-                updateRegisters(ledState);
-            } else { 
-                PWM(ledValues); 
-                std::cout << "\n";  g_Controller->printTab<int>(ledValues, false); 
-            }
+            if (ledMode == PWMOff) updateRegisters(ledState);
+            else PWM(ledValues); 
         } 
     }
     while (changeMode());
