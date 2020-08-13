@@ -1,8 +1,9 @@
 #pragma once
 
 #include "IOutput.h"
+#include "../Settings.h"
 
-void digitalWrite(unsigned, bool); // Forward declaration
+
 
 class COutputOneWire : public IOutput {
 protected:

@@ -8,9 +8,10 @@
 class CControllerDualDistance: public IController
 {
 protected:
-
+	ISensor* m_sensorL;
+	ISensor* m_sensorR;
 public:
-	CControllerDualDistance(ISensor*, IOutput*);
+	CControllerDualDistance(IOutput*);
 
 	bool getOutput() final;
 };
