@@ -4,6 +4,7 @@
 #include "IController.h"
 #include "ControllerDualDistance.h"
 
+#include <iostream>
 
 //  //  // //  Current setup  //  //  // //
 IController* controller = new CControllerDualDistance(
@@ -21,7 +22,13 @@ void loop() {
 	controller->mainLoop();
 }
 
+int cnt = 0;
+
 int main()
 {
-
+	while (true) {
+		loop();
+		cnt++;
+		if(cnt % 1000 == 0) std::cout << cnt <<".\n";
+	}
 }

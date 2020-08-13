@@ -6,3 +6,4 @@ unsigned millis() { return 2; }
 void delay(unsigned) {}
 void delayMicroseconds(unsigned) {}
 data_t pulseIn(unsigned, bool) { return 2; }
+//int abs(int d) { return d >= 0 ? d : -d; }
