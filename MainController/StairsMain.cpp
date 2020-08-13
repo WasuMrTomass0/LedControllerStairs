@@ -26,6 +26,10 @@ CStairsBasic g_CBasicOn = CStairsBasic(PWMOn, ledState, ledValues);
 CStairsSimpleWave g_CWaveOff = CStairsSimpleWave(PWMOff, ledState, ledValues);
 CStairsSimpleWave g_CWaveOn = CStairsSimpleWave(PWMOn, ledState, ledValues);
 
+// TODO
+// Add energy save mode. When Input signal is constant longer than MAX_TIME, leds are turned of until input signal drops
+//
+
 void loop() {
     manualMode = readManualMode() ? ManualOn : ManualOff;
     if (manualMode == ManualOn) {
