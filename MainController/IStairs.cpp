@@ -47,7 +47,7 @@ void IStairs::switchAllTo(bool state) {
 }
 
 bool IStairs::get_updateRegisters() {
-	bool state = m_updateRegisters;
+	bool state = m_updateRegistersPrevious = m_updateRegisters;
 	m_updateRegisters = false;
 	return state;
 }
@@ -67,4 +67,9 @@ bool IStairs::isPWMNeeded(){
 		if (m_stepsValue[i] != 0 && m_stepsValue[i] != 255) return true;
 	}
 	return false;
+}
+
+void IStairs::isUpdateNeeded() {
+	m_updateRegisters = isPWMNeeded();
+	if (!m_updateRegisters && m_updateRegistersPrevious) m_stepsValue[0] == 255 ? turnOnAllLeds() : turnOffAllLeds();
 }

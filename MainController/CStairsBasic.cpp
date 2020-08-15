@@ -34,6 +34,6 @@ bool CStairsBasic::mainLoop() {
 	m_downstairsOn = m_upstairsOn = false; // Clear flags
 	if (m_ledMode == PWMOff) return true;  // Code below only for active PWM
 	updateValuesBasic();
-	m_updateRegisters = isPWMNeeded();
+	isUpdateNeeded();
 	return true;
 }

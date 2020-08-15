@@ -13,7 +13,7 @@ void updateRegisters(bool* ledState) {
     for (unsigned i = 0; i < SETT_STEPS; ++i) std::cout << ledState[i] << ' ';
     std::cout << '\n';
 #else
-    for (unsigned i = 0; i < SETT_STEPS; ++i) Serial.print(ledState[i]); Serial.print();
+    for (unsigned i = 0; i < SETT_STEPS; ++i) Serial.print(ledState[i]); Serial.print(" ");
     Serial.println();
 #endif // WINDOWS
 #endif // DEBUG
@@ -30,11 +30,16 @@ void updateRegisters(bool* ledState) {
 
 void PWM(int* ledValues) {
     for (unsigned i = 0; i < pwm::allLevels; i++) {
-        pwm::timeStamp = millis();
+    //for (unsigned i = 0; i < pwm::allLevels-1; i++) { // Temporally fix. (pwm::allLevels-1)
+        //  Fix: Po uaktualnieniu najnowszej wartosci PWMu (0-255) oceniane jest, czy mnalezy wgrywac PWM (wartoœæ x: 0 < x < 255)
+        //  Nale¿y:
+        //      Gdy osiagnie sie wartoœæ 0 lub 255, jednorazowo wgraæ dane na rejestry
+        //
+        //////pwm::timeStamp = millis();
         // pwm::pwmLevel = i * pwm::level;
         pwm::pwmLevel = (i * 255) / pwm::allLevels;
-        for (size_t s = 0; s < SETT_STEPS; s++) pwm::pwmState[s] = ledValues[s] > pwm::pwmLevel; // TODO Check if last frame is filled with HIGH state for 100% fillment PWM
-        while (pwm::timeStamp + pwm::framePeriod > millis()) {}
+        for (unsigned s = 0; s < SETT_STEPS; s++) pwm::pwmState[s] = ledValues[s] > pwm::pwmLevel; // TODO Check if last frame is filled with HIGH state for 100% fillment PWM
+        //////while (pwm::timeStamp + pwm::framePeriod > millis()) {}
         updateRegisters(pwm::pwmState);
     }
 }

@@ -55,6 +55,7 @@ protected:
 	void switchAllTo(bool);
 	bool updateValuesBasic(); // Manages m_stepsValue based on m_stepsState
 	bool isPWMNeeded();
+	void isUpdateNeeded();
 	
 
 protected:
@@ -78,6 +79,7 @@ protected:
 	unsigned m_timePwmValChange; // Previos value change in pwm values - timestamp
 
 	bool m_updateRegisters;
+	bool m_updateRegistersPrevious;
 
 	bool m_downstairsOn;
 	bool m_downstairsOff;

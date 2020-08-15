@@ -1,18 +1,34 @@
-﻿/*
-#include "Arduino.h"
-#include "src/utilities/CStairsBasic.h"
-#include "src/utilities/General.h"
-#include "src/utilities/CStairsSimpleWave.h"
-*/
+﻿#define WINDOWS	// If defined, Windows mode is activated
+#define DEBUG
 
-#include "General.h"
-#include "CStairsBasic.h"
-#include "CStairsSimpleWave.h"
-//#include "CInputOneWire.h"
 
-// #define DEBUG
+#ifndef WINDOWS
+    #include "Arduino.h"
+    #include "src/utilities/CStairsBasic.h"
+    #include "src/utilities/General.h"
+    #include "src/utilities/CStairsSimpleWave.h"
+#else
+    #include "General.h"
+    #include "CStairsBasic.h"
+    #include "CStairsSimpleWave.h"
+    //#include "CInputOneWire.h"
+#endif // WINDOWS
+
 
 void setup() {  
+#ifndef WINDOWS
+    pinMode(pin::SER, OUTPUT);
+    pinMode(pin::RCLK, OUTPUT);
+    pinMode(pin::SRCLK, OUTPUT);
+    pinMode(pin::IN_UPSTAIRS, INPUT_PULLUP);
+    pinMode(pin::IN_DOWNSTAIRS, INPUT_PULLUP);
+    pinMode(pin::IN_MANUAL, INPUT_PULLUP);
+    pinMode(pin::IN_CHANGE_MODE, INPUT_PULLUP);
+#endif // !WINDOWS
+
+
+
+
 #ifndef WINDOWS
 #ifdef DEBUG
     Serial.begin(115200);
@@ -21,17 +37,15 @@ void setup() {
 
 #endif // !WINDOWS
 
-
-
-    blink(4, 500);
-    delay(500);
+    blink(4, 100);
+    delay(100);
     for (unsigned i = 1; i <= SETT_STEPS; ++i) {
         turnOnLeds(i, true); 
-        delay(500);
+        delay(50);
     }
     for (unsigned i = 1; i <= SETT_STEPS; ++i) {
         turnOnLeds(i, false);
-        delay(500);
+        delay(50);
     }
 }
 unsigned int mode = 3;
@@ -87,14 +101,18 @@ void loop() {
         
         if (g_Controller->get_updateRegisters()) {
             if (ledMode == PWMOff) updateRegisters(ledState);
-            else PWM(ledValues); 
+            else PWM(ledValues);
         } 
     }
-    while (changeMode());
+    while (changeMode()) {
+        blink(1, 100);
+    }
     mode++;
 }
 
+#ifdef WINDOWS
 int main() {
     setup();
     while (true) loop();
 }
+#endif // WINDOWS

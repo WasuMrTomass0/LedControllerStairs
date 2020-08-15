@@ -11,6 +11,9 @@
 #include "Arduino.h"
 #else
 // Only in VS
+#define LOW false
+#define HIGH true
+
 bool digitalRead(unsigned);
 void digitalWrite(unsigned, bool);
 unsigned millis();
@@ -18,12 +21,7 @@ void delay(unsigned);
 #endif
 //	//	//	//	//	//	//	//	//	//
 
-
-
 #define SETT_STEPS 16
-#define LOW false
-#define HIGH true
-
 
 
 #endif // SETTINGS_SETTINGS_H

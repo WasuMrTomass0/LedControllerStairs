@@ -72,8 +72,7 @@ bool CStairsSimpleWave::mainLoop() {
 
 	orBool(m_ledStateDownstairs, m_ledStateUpstairs, m_stepsState, SETT_STEPS);
 	if (m_ledMode == PWMOff) return true;  // Code below only for active PWM
-
 	updateValuesBasic();
-	m_updateRegisters = isPWMNeeded();
+	isUpdateNeeded();
 	return true;
 }

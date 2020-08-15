@@ -29,9 +29,9 @@ namespace pin {
     constexpr unsigned SRCLK = 7;
     constexpr unsigned SER = 13;
     constexpr unsigned IN_UPSTAIRS = 12;
-    constexpr unsigned IN_DOWNSTAIRS = 11;
-    constexpr unsigned IN_MANUAL = 10;
-    constexpr unsigned IN_CHANGE_MODE = 9;
+    constexpr unsigned IN_DOWNSTAIRS = 10;
+    constexpr unsigned IN_MANUAL = 11;
+    constexpr unsigned IN_CHANGE_MODE = 11;  // Should be 9;
 }
 
 // --- // --- // --- // --- // --- // --- // --- // --- // --- // --- // --- // --- // --- // --- //
@@ -54,25 +54,30 @@ inline bool changeMode() {
 }
 #else // WINDOWS
 inline bool inputUpstairs() {
-    return digitalRead(pin::IN_UPSTAIRS);
+    return digitalRead(pin::IN_UPSTAIRS) == HIGH;
 }
 
 inline bool inputDownstairs() {
-    return digitalRead(pin::IN_DOWNSTAIRS);
+    return false; // TODO Change when second sensor is ready
+    //return digitalRead(pin::IN_DOWNSTAIRS) == HIGH;
 }
 
 inline bool readManualMode() {
-    return digitalRead(pin::IN_MANUAL);
+    return false;
+    //return digitalRead(pin::IN_MANUAL) == HIGH;
 }
 
 inline bool changeMode() {
-    return digitalRead(pin::IN_CHANGE_MODE);
+    return digitalRead(pin::IN_CHANGE_MODE) == HIGH;
 }
 #endif // not WINDOWS
 
 
 
 void turnOnLeds(unsigned, bool);
+
+inline void turnOnAllLeds()  { turnOnLeds(SETT_STEPS, true); }
+inline void turnOffAllLeds() { turnOnLeds(0, true); }
 
 void blink(unsigned, unsigned);
 
