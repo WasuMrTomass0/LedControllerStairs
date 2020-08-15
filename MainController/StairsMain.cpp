@@ -2,6 +2,7 @@
 #include "Arduino.h"
 #include "src/utilities/CStairsBasic.h"
 #include "src/utilities/General.h"
+#include "src/utilities/CStairsSimpleWave.h"
 */
 
 #include "General.h"
@@ -12,6 +13,26 @@
 // #define DEBUG
 
 void setup() {  
+#ifndef WINDOWS
+#ifdef DEBUG
+    Serial.begin(115200);
+    Serial.println("DEBUG MODE - Platform Arduino");
+#endif // DEBUG
+
+#endif // !WINDOWS
+
+
+
+    blink(4, 500);
+    delay(500);
+    for (unsigned i = 1; i <= SETT_STEPS; ++i) {
+        turnOnLeds(i, true); 
+        delay(500);
+    }
+    for (unsigned i = 1; i <= SETT_STEPS; ++i) {
+        turnOnLeds(i, false);
+        delay(500);
+    }
 }
 unsigned int mode = 3;
 
@@ -65,13 +86,8 @@ void loop() {
         if (!g_Controller->mainLoop()) break; // Remember to clear movement flags in all mainLoops!
         
         if (g_Controller->get_updateRegisters()) {
-            if (ledMode == PWMOff) {
-                std::cout << "\n";  g_Controller->printTab<bool>(ledState, false);
-                updateRegisters(ledState);
-            } else { 
-                PWM(ledValues); 
-                std::cout << "\n";  g_Controller->printTab<int>(ledValues, false); 
-            }
+            if (ledMode == PWMOff) updateRegisters(ledState);
+            else PWM(ledValues); 
         } 
     }
     while (changeMode());

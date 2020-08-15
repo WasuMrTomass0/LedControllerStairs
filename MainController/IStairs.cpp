@@ -36,6 +36,8 @@ void IStairs::resetBaseClass() {
 	m_downstairsOff = false;
 	m_upstairsOn = false;
 	m_upstairsOff = false;
+
+	m_updateRegisters = true;
 }
 
 void IStairs::switchAllTo(bool state) {

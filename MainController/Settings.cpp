@@ -12,5 +12,8 @@ unsigned millis() {
 	return static_cast<unsigned>(1000.0 * (std::clock() - start) / CLOCKS_PER_SEC);
 }
 
-void delay(unsigned p) {}
+void delay(unsigned p) {
+	unsigned t = millis();
+	while (t + p > millis()) {}
+}
 #endif // WINDOWS

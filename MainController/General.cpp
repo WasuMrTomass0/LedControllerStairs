@@ -7,6 +7,18 @@ namespace pwm {
 }
 
 void updateRegisters(bool* ledState) {
+
+#ifdef DEBUG
+#ifdef WINDOWS
+    for (unsigned i = 0; i < SETT_STEPS; ++i) std::cout << ledState[i] << ' ';
+    std::cout << '\n';
+#else
+    for (unsigned i = 0; i < SETT_STEPS; ++i) Serial.print(ledState[i]); Serial.print();
+    Serial.println();
+#endif // WINDOWS
+#endif // DEBUG
+
+
     digitalWrite(pin::RCLK, LOW);
     for(int i = SETT_STEPS - 1; i >= 0; i--) {
         digitalWrite(pin::SRCLK, LOW);
@@ -17,19 +29,25 @@ void updateRegisters(bool* ledState) {
 }
 
 void PWM(int* ledValues) {
-    for (size_t i = 0; i < pwm::allLevels; i++) {
+    for (unsigned i = 0; i < pwm::allLevels; i++) {
         pwm::timeStamp = millis();
         // pwm::pwmLevel = i * pwm::level;
-        pwm::pwmLevel = (i * 255) / (pwm::allLevels-1);
-        for (size_t s = 0; s < SETT_STEPS; s++) pwm::pwmState[s] = ledValues[s] >= pwm::pwmLevel; // TODO Check if last frame is filled with HIGH state for 100% fillment PWM
+        pwm::pwmLevel = (i * 255) / pwm::allLevels;
+        for (size_t s = 0; s < SETT_STEPS; s++) pwm::pwmState[s] = ledValues[s] > pwm::pwmLevel; // TODO Check if last frame is filled with HIGH state for 100% fillment PWM
         while (pwm::timeStamp + pwm::framePeriod > millis()) {}
         updateRegisters(pwm::pwmState);
     }
 }
 
 void turnOnLeds(unsigned n, bool upstairs = true) {
-    for (size_t i = 0; i < SETT_STEPS; i++) {
-        pwm::pwmState[i] = (upstairs ? (i > n) : (SETT_STEPS - i <= n));
+    for (unsigned i = 0; i < SETT_STEPS; i++) {
+        if (upstairs) {
+            pwm::pwmState[i] = i < n;
+        }
+        else {
+            pwm::pwmState[i] = SETT_STEPS-i <= n;
+        }
+        //pwm::pwmState[i] = (upstairs ? (i > n) : (SETT_STEPS - i + 1<= n));
     }
     updateRegisters(pwm::pwmState);
 }
@@ -50,7 +68,6 @@ bool didTimePass(unsigned* time, const unsigned period, bool update_time) {
     }
     return false;
 }
-
 
 void shiftTab(bool* tab, const unsigned size, bool shiftUpByIndex) {
     if (shiftUpByIndex)

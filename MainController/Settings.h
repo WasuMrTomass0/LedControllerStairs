@@ -3,7 +3,7 @@
 #define SETTINGS_SETTINGS_H
 
 #define WINDOWS	// If defined, Windows mode is activated
-
+#define DEBUG
 
 //	//	//	//	//	//	//	//	//	//
 //#if !defined(WINDOWS)
@@ -24,6 +24,6 @@ void delay(unsigned);
 #define LOW false
 #define HIGH true
 
-#define DEBUG
+
 
 #endif // SETTINGS_SETTINGS_H
