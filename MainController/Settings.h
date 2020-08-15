@@ -2,12 +2,23 @@
 #ifndef SETTINGS_SETTINGS_H
 #define SETTINGS_SETTINGS_H
 
-// #include "Arduino.h"
+#define WINDOWS	// If defined, Windows mode is activated
 
+
+//	//	//	//	//	//	//	//	//	//
+//#if !defined(WINDOWS)
+#ifndef WINDOWS
+#include "Arduino.h"
+#else
 // Only in VS
+bool digitalRead(unsigned);
 void digitalWrite(unsigned, bool);
 unsigned millis();
 void delay(unsigned);
+#endif
+//	//	//	//	//	//	//	//	//	//
+
+
 
 #define SETT_STEPS 16
 #define LOW false

@@ -1,8 +1,10 @@
 #include "Settings.h"
 
+#ifdef WINDOWS
 #include <time.h>
 #include <ctime>
 
+bool digitalRead(unsigned) { return true; };
 void digitalWrite(unsigned u, bool b) {}
 
 unsigned millis() {
@@ -11,3 +13,4 @@ unsigned millis() {
 }
 
 void delay(unsigned p) {}
+#endif // WINDOWS

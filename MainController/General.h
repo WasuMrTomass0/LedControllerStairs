@@ -3,32 +3,40 @@
 
 #include "Settings.h"
 
+#ifdef WINDOWS
 #include <string>
 #include <iostream>
 #include <Windows.h>
+#else
+#include <Arduino.h>
+#endif
+
 
 // PWM Config
 namespace pwm {
-    extern const unsigned allLevels;
-
-    extern const unsigned freq;
-    extern const unsigned framePeriod;
-    extern const unsigned level;
+    constexpr unsigned allLevels = 20;  // Led PWM levels
+    constexpr unsigned freq = 50;       // Frequency [Hz]
+    constexpr unsigned framePeriod = 1000 / freq / allLevels; // Single PWM frame preiod [ms]
+    constexpr unsigned level = 255 / allLevels;
 
     extern bool* pwmState;
     extern unsigned timeStamp;
     extern unsigned pwmLevel;
-    //extern int pwmLevel; // Preffered for comparision with ledValues[s] in "void PWM"
 }
 
 namespace pin {
-    extern const unsigned RCLK;
-    extern const unsigned SRCLK;
-    extern const unsigned SER;
+    constexpr unsigned RCLK = 8;
+    constexpr unsigned SRCLK = 7;
+    constexpr unsigned SER = 13;
+    constexpr unsigned IN_UPSTAIRS = 12;
+    constexpr unsigned IN_DOWNSTAIRS = 11;
+    constexpr unsigned IN_MANUAL = 10;
+    constexpr unsigned IN_CHANGE_MODE = 9;
 }
 
 // --- // --- // --- // --- // --- // --- // --- // --- // --- // --- // --- // --- // --- // --- //
 
+#ifdef WINDOWS
 inline bool inputUpstairs() {
     return (GetKeyState('U') & 0x8000/*Check if high-order bit is set (1 << 15)*/);
 }
@@ -44,6 +52,25 @@ inline bool readManualMode() {
 inline bool changeMode() {
     return (GetKeyState('C') & 0x8000/*Check if high-order bit is set (1 << 15)*/);
 }
+#else // WINDOWS
+inline bool inputUpstairs() {
+    return digitalRead(pin::IN_UPSTAIRS);
+}
+
+inline bool inputDownstairs() {
+    return digitalRead(pin::IN_DOWNSTAIRS);
+}
+
+inline bool readManualMode() {
+    return digitalRead(pin::IN_MANUAL);
+}
+
+inline bool changeMode() {
+    return digitalRead(pin::IN_CHANGE_MODE);
+}
+#endif // not WINDOWS
+
+
 
 void turnOnLeds(unsigned, bool);
 

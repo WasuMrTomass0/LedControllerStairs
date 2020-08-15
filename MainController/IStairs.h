@@ -6,8 +6,10 @@
 #include "Settings.h"
 #include "General.h"
 
+#ifdef WINDOWS
 #include <iostream>
 #include <sstream>
+#endif // WINDOWS
 
 enum ManualMode {
 	ManualOn = 1,
@@ -37,14 +39,16 @@ public:
 
 	bool get_updateRegisters();
 
+#ifdef WINDOWS
 #ifdef DEBUG
 	template<typename T>
 	void printTab(T* tab, bool newLine = true) {
 		if (newLine) std::cout << '\n';
-		for (size_t i = 0; i < get_steps(); i++) std::cout << static_cast<T>(tab[i])<<' ';
+		for (size_t i = 0; i < get_steps(); i++) std::cout << static_cast<T>(tab[i]) << ' ';
 		if (newLine) std::cout << '\n';
 	}
 #endif
+#endif // WINDOWS
 
 protected:
 	void resetBaseClass();

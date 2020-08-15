@@ -2,7 +2,6 @@
 #define CSTAIRSSIMPLEWAVE_CSTAIRSSIMPLEWAVE_H
 
 #include "IStairs.h"
-#include <array>
 
 class CStairsSimpleWave: public IStairs{
 public:

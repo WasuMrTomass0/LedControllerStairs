@@ -6,7 +6,7 @@ MainController/StairsVisualStudio.sln
 MainController/StairsVisualStudio.vcxproj
 MainController/StairsVisualStudio.vcxproj.filters
 MainController/StairsVisualStudio.vcxproj.user
-
+MainController/x64/
 
 MovementSensorController/Debug
 MovementSensorController/MovementSensorsController.sln

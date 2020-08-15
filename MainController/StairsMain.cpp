@@ -7,8 +7,9 @@
 #include "General.h"
 #include "CStairsBasic.h"
 #include "CStairsSimpleWave.h"
+//#include "CInputOneWire.h"
 
-#define DEBUG
+// #define DEBUG
 
 void setup() {  
 }
@@ -75,4 +76,9 @@ void loop() {
     }
     while (changeMode());
     mode++;
+}
+
+int main() {
+    setup();
+    while (true) loop();
 }
