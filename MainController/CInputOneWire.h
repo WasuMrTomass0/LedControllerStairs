@@ -10,5 +10,5 @@ protected:
 public:
 	CInputOneWire(unsigned pin) : m_pin(pin) {}
 	~CInputOneWire() = default;
-	bool getInput() { digitalRead(m_pin); }
+	bool getInput() { digitalRead(m_pin) == HIGH; }
 };

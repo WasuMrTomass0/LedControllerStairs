@@ -36,7 +36,7 @@ bool CStairsSimpleWave::mainLoop() {
 			}
 
 			shiftTab(m_ledStateUpstairs, SETT_STEPS, true);
-			m_ledStateUpstairs[0] = !m_upstairsOff;
+			m_ledStateUpstairs[0] = m_upstairsOn;
 
 			if (m_upstairsOn) {
 				if (didTimePass(&m_timeUpstairs, m_ledTime)) {

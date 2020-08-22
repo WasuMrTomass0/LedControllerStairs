@@ -27,8 +27,6 @@ void setup() {
 #endif // !WINDOWS
 
 
-
-
 #ifndef WINDOWS
 #ifdef DEBUG
     Serial.begin(115200);
@@ -47,6 +45,7 @@ void setup() {
         turnOnLeds(i, false);
         delay(50);
     }
+    turnOnLeds(0, true);
 }
 unsigned int mode = 3;
 
@@ -62,6 +61,7 @@ CStairsBasic g_CBasicOn = CStairsBasic(PWMOn, ledState, ledValues);
 CStairsSimpleWave g_CWaveOff = CStairsSimpleWave(PWMOff, ledState, ledValues);
 CStairsSimpleWave g_CWaveOn = CStairsSimpleWave(PWMOn, ledState, ledValues);
 
+
 // TODO
 // Add energy save mode. When Input signal is constant longer than MAX_TIME, leds are turned of until input signal drops
 //
@@ -71,6 +71,7 @@ void loop() {
     if (manualMode == ManualOn) {
         turnOnLeds(SETT_STEPS, true);
         while (readManualMode()) {}
+        turnOnLeds(0, true);
         return;
     }
 

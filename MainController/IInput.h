@@ -1,6 +1,5 @@
 #pragma once
 
-
 class IInput
 {
 public:
@@ -9,4 +8,3 @@ public:
 
 	virtual bool getInput() = 0;
 };
-
