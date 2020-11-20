@@ -45,7 +45,7 @@ void setup() {
         turnOnLeds(i, false);
         delay(50);
     }
-    turnOnLeds(0, true);
+    turnOffAllLeds();
 }
 unsigned int mode = 3;
 
