@@ -15,3 +15,6 @@ MovementSensorController/MovementSensorsController.vcxproj
 MovementSensorController/MovementSensorsController.vcxproj.user
 
 .vs/
+
+LedControllerStairs/
+LedControllerStairs.sln
