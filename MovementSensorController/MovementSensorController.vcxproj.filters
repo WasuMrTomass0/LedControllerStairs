@@ -27,9 +27,6 @@
     <ClCompile Include="ControllerDualDistance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CSensorHCSr04.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DataStorage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -39,18 +36,15 @@
     <ClCompile Include="DSSlopeFactor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Distance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Settings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="OutputOneWire.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ControllerDualDistance.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CSensorHCSr04.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DataStorage.h">
@@ -62,13 +56,19 @@
     <ClInclude Include="DSSlopeFactor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="IOutput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ISensor.h">
+    <ClInclude Include="OutputBoolOneWire.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IInput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Distance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InputThresholdDistance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

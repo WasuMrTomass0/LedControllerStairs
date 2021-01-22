@@ -140,7 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ControllerDualDistance.cpp" />
-    <ClCompile Include="CSensorHCSr04.cpp" />
+    <ClCompile Include="Distance.cpp" />
     <ClCompile Include="DataStorage.cpp" />
     <ClCompile Include="DSMeasurements.cpp" />
     <ClCompile Include="DSSlopeFactor.cpp" />
@@ -150,14 +150,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ControllerDualDistance.h" />
-    <ClInclude Include="CSensorHCSr04.h" />
+    <ClInclude Include="Distance.h" />
     <ClInclude Include="DataStorage.h" />
     <ClInclude Include="DSMeasurements.h" />
     <ClInclude Include="DSSlopeFactor.h" />
-    <ClInclude Include="IController.h" />
+    <ClInclude Include="IInput.h" />
+    <ClInclude Include="InputThresholdDistance.h" />
     <ClInclude Include="IOutput.h" />
-    <ClInclude Include="ISensor.h" />
-    <ClInclude Include="OutputOneWire.h" />
+    <ClInclude Include="OutputBoolOneWire.h" />
     <ClInclude Include="Settings.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
