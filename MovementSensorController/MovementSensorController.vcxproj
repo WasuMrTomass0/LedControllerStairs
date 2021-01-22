@@ -145,7 +145,6 @@
     <ClCompile Include="DSMeasurements.cpp" />
     <ClCompile Include="DSSlopeFactor.cpp" />
     <ClCompile Include="MovementSensorController.cpp" />
-    <ClCompile Include="OutputOneWire.cpp" />
     <ClCompile Include="Settings.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -5,7 +5,6 @@
 #include "Distance.h"
 #include "Settings.h"
 
-
 template<unsigned arraySize>
 class InputThresholdDistance : public IInput
 {
@@ -13,9 +12,10 @@ protected:
 	const std::array<IDistance *, arraySize> m_distanceSensors;
 	const std::array<TYPE::distance, arraySize> m_thresholds;
 public:
-	InputThresholdDistance(std::array<IDistance*, arraySize> distanceSensors, std::array<TYPE::distance, arraySize> thresholds)
+	InputThresholdDistance(std::array<IDistance*, arraySize> distanceSensors, std::array<TYPE::distance, arraySize> thresholds, unsigned repetitions)
 		: m_distanceSensors(distanceSensors)
 		, m_thresholds(thresholds)
+		, m_repetitions(repetitions)
 	{
 	}
 	

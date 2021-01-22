@@ -1,6 +1,7 @@
 #pragma once
 
-class IOutput {
+class IOutput 
+{
 public:
 	IOutput() = default;
 	virtual void setOutputState(bool) = 0;

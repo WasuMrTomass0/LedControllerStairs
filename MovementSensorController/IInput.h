@@ -1,6 +1,7 @@
 #pragma once
 
-class IInput {
+class IInput 
+{
 public:
 	IInput() = default;
 	virtual bool getOutputState(bool) = 0;

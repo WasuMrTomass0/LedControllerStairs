@@ -2,7 +2,8 @@
 
 #include "Settings.h"
 
-class IDistance {
+class IDistance 
+{
 public:
 	IDistance() = default;
 	virtual TYPE::distance getDistance() = 0;
@@ -14,7 +15,9 @@ public:
 */
 
 // Ultrasound distance sensor HCSR04
-class Distance_HCSR04 : public IDistance {
+class Distance_HCSR04 
+	: public IDistance 
+{
 protected:
 	const unsigned m_trigPin;
 	const unsigned m_echoPin;
@@ -23,7 +26,12 @@ protected:
 	TYPE::distance m_readDistance();
 
 public:
-	Distance_HCSR04(const unsigned trig, const unsigned echo) : m_trigPin(trig), m_echoPin(echo) {}
+	Distance_HCSR04(const unsigned trig, const unsigned echo) 
+		: IDistance()
+		, m_trigPin(trig)
+		, m_echoPin(echo)
+	
+	{}
 	/*
 	W programie u¿ywanym przez ostatni okres czasu u¿yto niepoprawnego przelicznika. Jednak uda³o siê ustaliæ w³aœciwy próg detekcji.
 		duration = pulseIn(echoPin, HIGH);

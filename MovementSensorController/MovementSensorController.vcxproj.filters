@@ -21,9 +21,6 @@
     <ClCompile Include="Settings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OutputOneWire.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ControllerDualDistance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
