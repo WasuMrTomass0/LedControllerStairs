@@ -31,7 +31,10 @@ public:
 		, m_trigPin(trig)
 		, m_echoPin(echo)
 	
-	{}
+	{
+		pinMode(m_trigPin, OUTPUT);
+		pinMode(m_echoPin, INPUT);
+	}
 	/*
 	W programie u¿ywanym przez ostatni okres czasu u¿yto niepoprawnego przelicznika. Jednak uda³o siê ustaliæ w³aœciwy próg detekcji.
 		duration = pulseIn(echoPin, HIGH);

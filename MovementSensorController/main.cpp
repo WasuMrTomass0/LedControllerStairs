@@ -6,29 +6,27 @@
 #include "Settings.h"
 #include "OutputBoolOneWire.h"
 #include "Distance.h"
-#include <iostream>
 
 Distance_HCSR04 DistanceSensor(PINOUT::S2_DIS_TRIG, PINOUT::S2_DIS_ECHO);
 OutputBoolOneWire Output(PINOUT::S2_DIS_OUT_PIN);
 
 void setup() {
-
+	Serial.begin(115200);
 }
 
 void loop() {
-
+	Serial.println(DistanceSensor.getDistance());
 }
 
-
-// int cnt = 0;
+// WINDOWS DEBUG BELOW
+#ifdef _MSC_VER 
 int main()
 {
 	while (true) {
-		// loop();
-		// cnt++;
-		// if (cnt % 1000 == 0) std::cout << cnt << ".\n";
+		loop();
 	}
 }
+#endif // _MSC_VER 
 // ONE_DISTANCE_SENSOR_USED
 // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // 
 #elif TWO_DISTANCE_SENSORS_USED

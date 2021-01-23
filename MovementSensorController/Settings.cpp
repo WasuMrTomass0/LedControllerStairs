@@ -1,9 +1,15 @@
+#ifdef _MSC_VER 
 #include "Settings.h"
 
 void digitalWrite(unsigned, bool) {}
 void digitalRead(unsigned) {}
-unsigned millis() { return 2; }
+TYPE::time millis() { return 1098; }
 void delay(unsigned) {}
 void delayMicroseconds(unsigned) {}
-unsigned long pulseIn(unsigned, bool) { return 2; }
+void pinMode(unsigned, unsigned) {}
+TYPE::distance pulseIn(unsigned, bool) { return 2210; }
 //int abs(int d) { return d >= 0 ? d : -d; }
+
+CSerial Serial;
+
+#endif // _MSC_VER 
