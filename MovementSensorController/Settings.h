@@ -23,6 +23,12 @@ namespace PINOUT {
 	constexpr unsigned S2_DIS_TRIG = 10;
 	constexpr unsigned S2_DIS_ECHO = 11;
 	constexpr unsigned S2_DIS_OUT_PIN = 12;
+
+	// Dataset Creation
+	constexpr unsigned DS_TRIG_BUTT = 3; // Defines write to mem periods
+	constexpr unsigned DS_DIR_BUTT = 4;  // Defines Ground Truth direction
+	constexpr unsigned DS_BUZZER = 5;    // Buzzer pin
+
 }
 
 namespace CONFIG {
@@ -38,14 +44,16 @@ constexpr bool HIGH = true;
 constexpr bool LOW = false;
 // Forward declarations
 void digitalWrite(unsigned, bool);
-void digitalRead(unsigned);
+bool digitalRead(unsigned);
 TYPE::time millis();
 void delay(unsigned);
 void delayMicroseconds(unsigned);
 TYPE::distance pulseIn(unsigned, bool);
 void pinMode(unsigned, unsigned);
-const unsigned OUTPUT = 1;
-const unsigned INPUT = 2;
+
+constexpr unsigned OUTPUT = 1;
+constexpr unsigned INPUT = 2;
+constexpr unsigned INPUT_PULLUP = 3;
 //int abs(int d);
 
 #include <cstdlib>

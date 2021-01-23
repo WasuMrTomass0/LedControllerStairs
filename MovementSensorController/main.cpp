@@ -1,21 +1,55 @@
 // #define TWO_DISTANCE_SENSORS_USED
-#define ONE_DISTANCE_SENSOR_USED
+//#define ONE_DISTANCE_SENSOR_USED
+#define ONE_DISTANCE_SENSOR_USED_CREATE_DATASET
 
 // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // 
-#ifdef ONE_DISTANCE_SENSOR_USED
+#ifdef ONE_DISTANCE_SENSOR_USED_CREATE_DATASET
 #include "Settings.h"
 #include "OutputBoolOneWire.h"
 #include "Distance.h"
+#include "GlobalFunctions.h"
 
 Distance_HCSR04 DistanceSensor(PINOUT::S2_DIS_TRIG, PINOUT::S2_DIS_ECHO);
 OutputBoolOneWire Output(PINOUT::S2_DIS_OUT_PIN);
 
 void setup() {
 	Serial.begin(115200);
+
+	pinMode(PINOUT::DS_TRIG_BUTT, INPUT_PULLUP);
+	pinMode(PINOUT::DS_DIR_BUTT, INPUT_PULLUP);
+	pinMode(PINOUT::DS_BUZZER, OUTPUT);
+	
+	// Buzzer notiffication and test
+	digitalWrite(PINOUT::DS_BUZZER, HIGH);
+	delay(50);
+	digitalWrite(PINOUT::DS_BUZZER, LOW);
 }
 
+unsigned cnt = 0;  // Dataset entry counter
 void loop() {
-	Serial.println(DistanceSensor.getDistance());
+	while (digitalRead(PINOUT::DS_TRIG_BUTT) == LOW)
+	{
+		delay(50);
+	}
+	// Start
+	buzzer_blink(1);
+
+	int lastRead = 0, currRead = 0, diff = 0; // Can't be unsigned if substraction is used
+	while (digitalRead(PINOUT::DS_TRIG_BUTT) == HIGH)
+	{
+		lastRead = currRead;
+		currRead = DistanceSensor.getDistance();
+		diff = currRead - lastRead;
+		
+		// cnt, diff, currRead
+		Serial.print(cnt); Serial.print(',');
+		Serial.print(diff); Serial.print(',');
+		Serial.print(currRead); 
+
+		delay(1);
+	}
+	// Stop
+	buzzer_blink(2);
 }
 
 // WINDOWS DEBUG BELOW
