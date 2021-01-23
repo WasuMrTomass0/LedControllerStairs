@@ -3,7 +3,8 @@
 #include "IInput.h"
 #include "Settings.h"
 
-class CInputOneWire: public IInput
+class CInputOneWire
+	: public IInput
 {
 protected:
 	const unsigned m_pin;

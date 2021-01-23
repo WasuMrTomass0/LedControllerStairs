@@ -1,6 +1,6 @@
 #include "Settings.h"
 
-#ifdef WINDOWS
+#ifdef _MSC_VER
 #include <time.h>
 #include <ctime>
 
@@ -16,4 +16,4 @@ void delay(unsigned p) {
 	unsigned t = millis();
 	while (t + p > millis()) {}
 }
-#endif // WINDOWS
+#endif // _MSC_VER

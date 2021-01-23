@@ -3,8 +3,9 @@
 
 #include "IStairs.h"
 
-class CStairsBasic: public IStairs{
-	
+class CStairsBasic
+	: public IStairs
+{
 public:
 	CStairsBasic(PWMMode, bool*, int*);
 	

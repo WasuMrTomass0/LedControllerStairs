@@ -2,12 +2,10 @@
 #ifndef SETTINGS_SETTINGS_H
 #define SETTINGS_SETTINGS_H
 
-#define WINDOWS	// If defined, Windows mode is activated
 #define DEBUG
 
 //	//	//	//	//	//	//	//	//	//
-//#if !defined(WINDOWS)
-#ifndef WINDOWS
+#ifndef _MSC_VER
 #include "Arduino.h"
 #else
 // Only in VS

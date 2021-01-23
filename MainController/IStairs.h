@@ -6,7 +6,7 @@
 #include "Settings.h"
 #include "General.h"
 
-#ifdef WINDOWS
+#ifdef _MSC_VER
 #include <iostream>
 #include <sstream>
 #endif // WINDOWS
@@ -41,7 +41,7 @@ public:
 
 	void switchAllTo(bool);
 
-#ifdef WINDOWS
+#ifdef _MSC_VER
 #ifdef DEBUG
 	template<typename T>
 	void printTab(T* tab, bool newLine = true) {
