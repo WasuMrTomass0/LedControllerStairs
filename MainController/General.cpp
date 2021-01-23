@@ -9,13 +9,13 @@ namespace pwm {
 void updateRegisters(bool* ledState) {
 
 #ifdef DEBUG
-#ifdef WINDOWS
+#ifdef _MSC_VER
     for (unsigned i = 0; i < SETT_STEPS; ++i) std::cout << ledState[i] << ' ';
     std::cout << '\n';
 #else
     for (unsigned i = 0; i < SETT_STEPS; ++i) Serial.print(ledState[i]); Serial.print(" ");
     Serial.println();
-#endif // WINDOWS
+#endif // _MSC_VER
 #endif // DEBUG
 
 

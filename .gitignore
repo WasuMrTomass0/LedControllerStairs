@@ -13,6 +13,8 @@ MovementSensorController/MovementSensorsController.sln
 MovementSensorController/MovementSensorsController.vcxproj.filters
 MovementSensorController/MovementSensorsController.vcxproj
 MovementSensorController/MovementSensorsController.vcxproj.user
+MovementSensorController/MovementSensorController.vcxproj
+MovementSensorController/MovementSensorController.vcxproj.filters
 
 .vs/
 

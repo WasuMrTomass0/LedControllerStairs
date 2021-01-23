@@ -3,10 +3,11 @@
 
 #include "IStairs.h"
 
-class CStairsSimpleWave: public IStairs{
+class CStairsSimpleWave
+	: public IStairs
+{
 public:
 	CStairsSimpleWave(PWMMode, bool*, int*);
-
 	void resetData() final;
 	bool mainLoop() final;
 
@@ -19,7 +20,6 @@ protected:
 
 	bool* m_ledStateUpstairs;
 	bool* m_ledStateDownstairs;
-
 };
 
 #endif //CSTAIRSSIMPLEWAVE_CSTAIRSSIMPLEWAVE_H

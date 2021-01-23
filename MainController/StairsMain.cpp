@@ -1,8 +1,6 @@
-﻿#define WINDOWS	// If defined, Windows mode is activated
-#define DEBUG
+﻿#define DEBUG
 
-
-#ifndef WINDOWS
+#ifndef _MSC_VER
     #include "Arduino.h"
     #include "src/utilities/CStairsBasic.h"
     #include "src/utilities/General.h"
@@ -12,11 +10,10 @@
     #include "CStairsBasic.h"
     #include "CStairsSimpleWave.h"
     //#include "CInputOneWire.h"
-#endif // WINDOWS
-
+#endif // _MSC_VER
 
 void setup() {  
-#ifndef WINDOWS
+#ifndef _MSC_VER
     pinMode(pin::SER, OUTPUT);
     pinMode(pin::RCLK, OUTPUT);
     pinMode(pin::SRCLK, OUTPUT);
@@ -24,16 +21,16 @@ void setup() {
     pinMode(pin::IN_DOWNSTAIRS, INPUT_PULLUP);
     pinMode(pin::IN_MANUAL, INPUT_PULLUP);
     pinMode(pin::IN_CHANGE_MODE, INPUT_PULLUP);
-#endif // !WINDOWS
+#endif // !_MSC_VER
 
 
-#ifndef WINDOWS
+#ifndef _MSC_VER
 #ifdef DEBUG
     Serial.begin(115200);
     Serial.println("DEBUG MODE - Platform Arduino");
 #endif // DEBUG
 
-#endif // !WINDOWS
+#endif // !_MSC_VER
 
     blink(4, 100);
     delay(100);
@@ -111,9 +108,9 @@ void loop() {
     mode++;
 }
 
-#ifdef WINDOWS
+#ifdef _MSC_VER
 int main() {
     setup();
     while (true) loop();
 }
-#endif // WINDOWS
+#endif // _MSC_VER

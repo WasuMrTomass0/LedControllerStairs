@@ -3,7 +3,7 @@
 
 #include "Settings.h"
 
-#ifdef WINDOWS
+#ifdef _MSC_VER
 #include <string>
 #include <iostream>
 #include <Windows.h>
@@ -36,7 +36,7 @@ namespace pin {
 
 // --- // --- // --- // --- // --- // --- // --- // --- // --- // --- // --- // --- // --- // --- //
 
-#ifdef WINDOWS
+#ifdef _MSC_VER
 inline bool inputUpstairs() {
     return (GetKeyState('U') & 0x8000/*Check if high-order bit is set (1 << 15)*/);
 }
@@ -52,7 +52,7 @@ inline bool readManualMode() {
 inline bool changeMode() {
     return (GetKeyState('C') & 0x8000/*Check if high-order bit is set (1 << 15)*/);
 }
-#else // WINDOWS
+#else // !_MSC_VER -> Arduino
 inline bool inputUpstairs() {
     return digitalRead(pin::IN_UPSTAIRS) == HIGH;
 }
@@ -70,7 +70,7 @@ inline bool readManualMode() {
 inline bool changeMode() {
     return digitalRead(pin::IN_CHANGE_MODE) == HIGH;
 }
-#endif // not WINDOWS
+#endif // !_MSC_VER
 
 
 
