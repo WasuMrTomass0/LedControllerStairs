@@ -8,6 +8,15 @@ protected:
 	const unsigned m_wirePin;
 	bool m_state;
 public:
-	OutputBoolOneWire(const unsigned wirePin) : m_wirePin(wirePin), m_state(CONFIG::DISABLE_STAIRS) {}
-	void setOutputState(bool state) final { m_state = state; digitalWrite(m_wirePin, m_state); }
+	OutputBoolOneWire(const unsigned wirePin) 
+		: m_wirePin(wirePin)
+		, m_state(CONFIG::DISABLE_STAIRS) 
+	{
+		pinMode(m_wirePin, OUTPUT);
+	}
+	void setOutputState(bool state) final 
+	{ 
+		m_state = state; 
+		digitalWrite(m_wirePin, m_state); 
+	}
 };
