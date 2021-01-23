@@ -14,6 +14,7 @@ OutputBoolOneWire Output(PINOUT::S2_DIS_OUT_PIN);
 
 void setup() {
 	Serial.begin(115200);
+	Serial.println("OK!");
 
 	pinMode(PINOUT::DS_TRIG_BUTT, INPUT_PULLUP);
 	pinMode(PINOUT::DS_DIR_BUTT, INPUT_PULLUP);
@@ -44,12 +45,13 @@ void loop() {
 		// cnt, diff, currRead
 		Serial.print(cnt); Serial.print(',');
 		Serial.print(diff); Serial.print(',');
-		Serial.print(currRead); 
-
-		delay(1);
+		Serial.print(currRead); Serial.println('.');
+		delay(25); 
+		++cnt;
 	}
 	// Stop
 	buzzer_blink(2);
+	Serial.println('-');
 }
 
 // WINDOWS DEBUG BELOW
