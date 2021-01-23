@@ -38,6 +38,10 @@ T = removevars(dataset,{'GroundTruth'});
 T = T(1:6, :);
 yfit = trainedModel.predictFcn(T);
 
+%% To read
+help fitcknn
+% Dla k=1 uzyskuje się 'minimum distance classifier matlab'
+
 %% I Am Speed
 % 3 - 4 miles per hour - Walking
 % 4 - 6 miles per hour - Jogging
