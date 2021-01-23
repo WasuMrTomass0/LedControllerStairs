@@ -19,6 +19,11 @@ MovementSensorController/MovementSensorController.aps
 MovementSensorController/MovementSensorController.rc
 MovementSensorController/resource.h
 
+*.asv
+
+MovementSensorController/Dataset/PyCharm/.idea/
+
+
 .vs/
 
 LedControllerStairs/
