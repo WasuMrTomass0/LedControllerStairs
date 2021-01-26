@@ -23,6 +23,15 @@ MovementSensorController/resource.h
 
 MovementSensorController/Dataset/PyCharm/.idea/
 
+*.sln
+*.vcxproj
+*.filters
+*.user
+
+*.sln
+*.vcxproj 
+*.vcxproj.filters  
+*.vcxproj.user
 
 .vs/
 
