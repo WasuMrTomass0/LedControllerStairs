@@ -32,6 +32,7 @@ MovementSensorController/Dataset/PyCharm/.idea/
 *.vcxproj 
 *.vcxproj.filters  
 *.vcxproj.user
+MovementSensorController/Dataset/CppClassification/Debug/
 
 .vs/
 
