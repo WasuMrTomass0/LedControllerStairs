@@ -63,7 +63,7 @@ class_summary calc_class_summary(container2D& dataset, float class_label)
 float calc_prob_by_summary(const container1D& test_data, const class_summary& summary)
 {
     size_t index = 0;
-    float prob = 1.0f;
+    double prob = 1.0f;
     for (auto row = summary.mean_st_dev.begin(); row != summary.mean_st_dev.end() - 1; ++row)
     {
         prob *= math::calc_prob(test_data[index], (*row)[0], (*row)[1]);

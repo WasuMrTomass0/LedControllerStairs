@@ -8,7 +8,7 @@
 
 namespace math {
 	template <typename T>
-	T calc_mean(std::vector<T>& data)
+	float calc_mean(std::vector<T>& data)
 	{
 		return std::accumulate(data.begin(), data.end(), 0.0) / data.size();
 	}
@@ -28,8 +28,8 @@ namespace math {
 	double calc_variancy(std::vector<T>& data)
 	{
 		T mean = calc_mean<T>(data);
-		double sum = 0.0d;
-		std::for_each(data[4].begin(), data[4].end(),
+		double sum = 0.0;
+		std::for_each(data.begin(), data.end(),
 			[&](float& item)
 			{
 				double temp = item - mean;
