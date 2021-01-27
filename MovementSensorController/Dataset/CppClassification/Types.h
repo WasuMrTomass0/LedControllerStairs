@@ -5,6 +5,6 @@ typedef std::vector<float> container1D;
 
 typedef struct class_summary
 {
-	container2D Mean_Stdev;
-	float class_prob;
+    container2D mean_st_dev;
+    float class_prob;
 } class_summary;

@@ -6,11 +6,11 @@
 class NaiveBayes
 {
 protected:
-	std::vector<class_summary> m_summary;
-	std::vector<float> m_uniqueLabel;
+    std::vector<class_summary> m_summary;
+    container1D m_uniqueLabel;
 
 public:
-	void fit(container2D dataset);
-	int predict(const container1D& test_data);
+    void fit(container2D dataset);
+    size_t predict(const container1D& test_data);
 };
 
