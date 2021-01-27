@@ -86,4 +86,18 @@ float calc_vec_match_schore(const container1D& labels, const container1D& predic
     return static_cast<float>(100.0 * result / labels.size());
 }
 
-
+void split_dataset(container2D& dataset, const unsigned training_percentage,
+    container2D& training_ds, container2D& test_ds)
+{
+    for (auto row = dataset.begin(); row != dataset.end(); ++row)
+    {
+        if (rand() % 100 < training_percentage)
+        {
+            training_ds.push_back(*row);
+        }
+        else
+        {
+            test_ds.push_back(*row);
+        }
+    }
+}

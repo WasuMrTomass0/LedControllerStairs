@@ -4,6 +4,7 @@
 #include <numeric>		// std::inner_product, std::accumulate
 #include <cmath>		// std::exp, std::sqrt
 #include <algorithm>	// std::for_each, std::max_element
+#include <cstdlib>		// rand
 #include "NaiveBayes.h"
 
 namespace math {
@@ -53,3 +54,6 @@ class_summary calc_class_summary(container2D& dataset, float class_label);
 float calc_prob_by_summary(const container1D& test_data, const class_summary& summary);
 
 float calc_vec_match_schore(const container1D& labels, const container1D& predictions);
+
+void split_dataset(container2D& dataset, const unsigned training_percentage,
+	container2D& training_ds, container2D& test_ds);
