@@ -1,9 +1,18 @@
 #include "NaiveBayes.h"
 #include "General.h"
-//#include <algorithm>
+#include <iostream>
 
-void NaiveBayes::fit(container2D dataset)
+void NaiveBayes::fit(container2D& dataset, container1D groundTruth)
 {
+	m_uniqueLabel = groundTruth;
+	std::sort(m_uniqueLabel.begin(), m_uniqueLabel.end());
+	m_uniqueLabel.erase(std::unique(m_uniqueLabel.begin(), m_uniqueLabel.end()), m_uniqueLabel.end());
+	
+	for (auto item = m_uniqueLabel.begin(); item != m_uniqueLabel.end(); ++item)
+	{
+		// (n_features+1, n_examples) - each row is one example
+		m_summary.push_back(calc_class_summary(dataset, *item));
+	}
 }
 
 size_t NaiveBayes::predict(const container1D& test_data)

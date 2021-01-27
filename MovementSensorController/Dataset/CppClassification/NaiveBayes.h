@@ -10,7 +10,7 @@ protected:
     container1D m_uniqueLabel;
 
 public:
-    void fit(container2D dataset);
+    void fit(container2D& dataset, container1D groundTruth);
     size_t predict(const container1D& test_data);
 };
 

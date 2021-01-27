@@ -1,11 +1,14 @@
 #pragma once
 
-#include <vector>
+#include <vector>		// std::vector
 #include <numeric>		// std::inner_product, std::accumulate
 #include <cmath>		// std::exp, std::sqrt
 #include <algorithm>	// std::for_each, std::max_element
 #include <cstdlib>		// rand
+#include <iostream>		// std::cout
+#include <ctime>		// std::srand
 #include "NaiveBayes.h"
+
 
 namespace math {
 	template <typename T>
@@ -53,7 +56,11 @@ class_summary calc_class_summary(container2D& dataset, float class_label);
 
 float calc_prob_by_summary(const container1D& test_data, const class_summary& summary);
 
-float calc_vec_match_schore(const container1D& labels, const container1D& predictions);
+float calc_vec_match_score(const container1D& labels, const container1D& predictions);
 
 void split_dataset(container2D& dataset, const unsigned training_percentage,
 	container2D& training_ds, container2D& test_ds);
+
+void print_container1D(const container1D& container);
+
+void print_container2D(const container2D& container);
