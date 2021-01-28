@@ -27,18 +27,13 @@ namespace math {
 container2D split_by_class(container2D& dataset, float data_class)
 {
     container2D out_vec;
-    unsigned counter = 0;
-
-    std::for_each(dataset.begin(), dataset.end(),
-        [&](container1D& example)
+    for (const auto example : dataset)
+    {
+        if (*(example.end() - 1) == data_class)
         {
-            if ( *(example.end()-1) == data_class )
-            {
-                out_vec.push_back(example);
-            }
-            ++counter;
-        });
-    //return math::vec_transpose(out_vec);
+            out_vec.push_back(example);
+        }
+    }
     return out_vec;  // returned as (n_features+1, n_examples) - each row is one example
 }
 
@@ -46,12 +41,11 @@ class_summary calc_class_summary(container2D& dataset, float class_label)
 {
     // (n_features+1, n_examples) - each row is one example
     auto class_data = split_by_class(dataset, class_label);
-    // (n_examples, n_features+1) - each row is a set of all features + last row groundTruth
+    // // (n_examples, n_features+1) - each row is a set of all features + last row groundTruth
     class_data = math::vec_transpose(class_data); 
     
     class_summary summary;
     container1D temp;
-
     for (auto row = class_data.begin(); row != class_data.end() - 1; ++row)
     {
         temp.clear();
@@ -65,10 +59,11 @@ class_summary calc_class_summary(container2D& dataset, float class_label)
 
 float calc_prob_by_summary(const container1D& test_data, const class_summary& summary)
 {
+    // (n_features+1, n_examples) - each row is one example
     size_t index = 0;
     double prob = 1.0f;
     for (auto row = summary.mean_st_dev.begin(); row != summary.mean_st_dev.end() - 1; ++row)
-    {   // TODO Debug. Idk :v
+    {   
         prob *= math::calc_prob(test_data[index], (*row)[0], (*row)[1]);
         ++index;
     }
@@ -98,7 +93,7 @@ void split_dataset(container2D& dataset, const unsigned training_percentage,
     size_t counter = 0;
     for (auto row = dataset.begin(); row != dataset.end(); ++row)
     {
-        if (counter > threshold)
+        if (counter < threshold)
         {
             training_ds.push_back(*row);
         }

@@ -15,7 +15,7 @@ namespace iris {
     constexpr float setosa = 1.0f;
     constexpr float versicolor = 2.0f;
     constexpr float virginica = 3.0f;
-    constexpr float unknown = 0.0f;
+    constexpr float unknown = 100.0f;
 }
 
 namespace config{
