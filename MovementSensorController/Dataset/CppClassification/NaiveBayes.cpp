@@ -25,7 +25,7 @@ size_t NaiveBayes::predict(const container1D& test_data)
 	}
 	auto result = std::max_element(vec.begin(), vec.end());
 	size_t maxElementIndex = std::distance(vec.begin(), result);
-	std::cout << maxElementIndex << "  ->  "; print_container1D(vec);
+	// std::cout << maxElementIndex << "  ->  "; print_container1D(vec);
 	return maxElementIndex;
 }
 

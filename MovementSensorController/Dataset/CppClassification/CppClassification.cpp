@@ -10,8 +10,7 @@ int main()
     NaiveBayes naiveBayes = NaiveBayes();
 
     // (n_examples, n_features+1)
-    // container2D dataset = read_iris_dataset();
-    container2D dataset = read_distance_simple_dataset();
+    container2D dataset = read_dataset::default_ds();
     
     // (n_features+1, n_examples)
     dataset = math::vec_transpose(dataset);

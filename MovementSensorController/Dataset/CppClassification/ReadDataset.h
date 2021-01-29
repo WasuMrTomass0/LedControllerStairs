@@ -2,6 +2,11 @@
 
 #include "Types.h"
 
-container2D read_iris_dataset();
+namespace read_dataset
+{
+	container2D iris();
+	container2D distance_simple();
+	container2D balance();
+	container2D default_ds();
+}
 
-container2D read_distance_simple_dataset();
