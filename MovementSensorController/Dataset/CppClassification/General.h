@@ -64,3 +64,5 @@ void split_dataset(container2D& dataset, const unsigned training_percentage,
 void print_container1D(const container1D& container);
 
 void print_container2D(const container2D& container);
+
+void print_truth_table(const container1D& predictions, const container1D& ground_truth);

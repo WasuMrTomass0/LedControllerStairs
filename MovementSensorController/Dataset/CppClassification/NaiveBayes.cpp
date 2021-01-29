@@ -25,5 +25,34 @@ size_t NaiveBayes::predict(const container1D& test_data)
 	}
 	auto result = std::max_element(vec.begin(), vec.end());
 	size_t maxElementIndex = std::distance(vec.begin(), result);
+	std::cout << maxElementIndex << "  ->  "; print_container1D(vec);
 	return maxElementIndex;
+}
+
+void NaiveBayes::print_info()
+{
+	std::cout << "\nNaive Bayes post fir summary:\n";
+	std::cout << "\tm_summary     size is " << m_summary.size() << '\n';
+	std::cout << "\tm_uniqueLabel size is " << m_summary.size() << '\n';
+	std::cout << '\n';
+	std::cout << "Iteration:\n";
+	for (size_t i = 0; i < m_summary.size(); ++i)
+	{
+		std::cout << "------------------------------\n";
+		std::cout << "Label " << m_uniqueLabel[i] << '\n';
+		std::cout << "  class_prob " << m_summary[i].class_prob << "\n";
+		std::cout << "  mean_st_dev\n";
+		print_container2D(m_summary[i].mean_st_dev);
+		std::cout << "\n";
+	}
+
+	/*typedef struct class_summary
+	{
+		container2D mean_st_dev;
+		float class_prob;
+	} class_summary;*/
+
+	//std::vector<class_summary> m_summary;
+	//container1D m_uniqueLabel;
+
 }

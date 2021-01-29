@@ -41,9 +41,8 @@ class_summary calc_class_summary(container2D& dataset, float class_label)
 {
     // (n_features+1, n_examples) - each row is one example
     auto class_data = split_by_class(dataset, class_label);
-    // // (n_examples, n_features+1) - each row is a set of all features + last row groundTruth
     class_data = math::vec_transpose(class_data); 
-    
+
     class_summary summary;
     container1D temp;
     for (auto row = class_data.begin(); row != class_data.end() - 1; ++row)
@@ -124,4 +123,48 @@ void print_container2D(const container2D& container)
         }
         std::cout << '\n';
     }
+}
+
+void print_truth_table(const container1D& predictions, const container1D& ground_truth)
+{
+    if (predictions.size() != ground_truth.size())
+    {
+        std::cout << "Size mismatch!\n 'print_truth_table' in General.cpp\n";
+        return;
+    }
+    std::vector<std::vector<float>> truth_table(config::no_of_classes, std::vector<float>(config::no_of_classes));
+    
+    for (size_t i = 0; i < predictions.size(); ++i)
+    {
+        ++truth_table[ground_truth[i]][predictions[i]];
+    }
+
+    unsigned i = 0;
+    for (auto row = truth_table.begin(); row != truth_table.end(); ++row)
+    {   
+        std::cout << "     " << static_cast<char>('A' + i);
+        for (auto item = (*row).begin(); item != (*row).end(); ++item)
+        {
+            std::cout << '\t' << '|' << (*item);
+        }
+        if (truth_table.size() / 2 == i)
+        {
+            std::cout << "\t| Ground Truth"<< '\n';
+        }
+        else
+        {
+            std::cout << '\t' << '|' << '\n';
+        }
+        ++i;
+    }
+    for (size_t i = 0; i < truth_table.size(); ++i)
+    {
+        std::cout << "\t   " << static_cast<char>('A' + i);
+    }
+    std::cout << '\n';
+    for (size_t i = 0; i < truth_table.size()/2+1; ++i)
+    {
+        std::cout << '\t';
+    }
+    std::cout << "Predictions\n";
 }

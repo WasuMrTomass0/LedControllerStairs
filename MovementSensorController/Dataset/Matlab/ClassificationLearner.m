@@ -7,10 +7,10 @@ MOVE_AWAY = 2;
 %% Read CSV files
 dirPath = "C:\Projekty\VisualStudio\StairsVisualStudio\MovementSensorController\Dataset\PyCharm";
 csvFileNames = [
-    "TEST_CONV_DIFF_APPROACH.csv";
-    "TEST_CONV_DIFF_MOVE_AWAY.csv";
-    "TEST_CONV_DIFF_NO_MOVEMENT.csv";
-    
+%     "TEST_CONV_DIFF_APPROACH.csv";
+%     "TEST_CONV_DIFF_MOVE_AWAY.csv";
+%     "TEST_CONV_DIFF_NO_MOVEMENT.csv";
+    "TEST_CONV_10_DIFF_ALL.csv"
 %     "TEST_CONV_DIST_APPROACH.csv";
 %     "TEST_CONV_DIST_MOVE_AWAY.csv";
 %     "TEST_CONV_DIST_NO_MOVEMENT.csv";

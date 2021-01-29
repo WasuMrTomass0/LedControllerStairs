@@ -15,7 +15,10 @@ def getName(_id: int):
     return 'NotFound'
 
 
-CONVERT_ID = 'TEST_CONV'
+NO_OF_MEAS = 10
+CONVERT_ID = 'TEST_CONV' + '_' + str(NO_OF_MEAS)
+
+LIMIT_EXAMPLES = 150  # Set to -1 to disable
 
 filePaths = [
     ('DS1_BrakRuchuCzujnikaDoSciany.txt', NO_MOVEMENT),
@@ -25,8 +28,6 @@ filePaths = [
 
 directoryPath = r'C:\\Projekty\\VisualStudio\\StairsVisualStudio\\MovementSensorController\\Dataset\\'
 
-NO_OF_MEAS = 10
-
 # # # # Lists storing last measurements # # # #
 storage_diff = [None] * NO_OF_MEAS
 storage_dist = [None] * NO_OF_MEAS
@@ -34,6 +35,11 @@ storage_dist = [None] * NO_OF_MEAS
 output_diff = []
 output_dist = []
 # # # # # # # # # # # # # # # # # # # # # # # #
+out_all_diff = []
+out_all_dist = []
+# # # # # # # # # # # # # # # # # # # # # # # #
+
+colNames = ['n_' + str(x) for x in range(NO_OF_MEAS)] + ['GroundTruth']
 
 for file in filePaths:
     path = directoryPath + file[0]
@@ -42,8 +48,13 @@ for file in filePaths:
         text = token.read()
     text = text.split('\n')
 
+    output_diff.clear()
+    output_dist.clear()
+
     cnt = 0
     for line in text:
+        if 0 < LIMIT_EXAMPLES < len(output_diff):
+            break
         if len(line) == 0 or line[0] == '#':
             continue
         if line[-1] == '.':
@@ -69,13 +80,28 @@ for file in filePaths:
         pass  # for line in text
 
     # Create pandas data frames and save as CSV
-    colNames = ['n_' + str(x) for x in range(NO_OF_MEAS)] + ['GroundTruth']
     pd.DataFrame(output_dist, columns=colNames).to_csv(
         CONVERT_ID + '_DIST_' + getName(file[1]) + '.csv')
     pd.DataFrame(output_diff, columns=colNames).to_csv(
         CONVERT_ID + '_DIFF_' + getName(file[1]) + '.csv')
 
+    out_all_diff += output_diff
+    out_all_dist += output_dist
+
+    print('Class ', file[1], ' size ',
+          '\n\tdiff ', len(output_diff),
+          '\tdist ', len(output_dist))
     pass  # for file in filePaths
+
+
+pd.DataFrame(out_all_dist, columns=colNames).to_csv(
+    CONVERT_ID + '_DIST_ALL.csv')
+pd.DataFrame(out_all_diff, columns=colNames).to_csv(
+    CONVERT_ID + '_DIFF_ALL.csv')
+
+print('\nClass out_all, size ',
+      '\n\tdiff ', len(out_all_diff),
+      '\n\tdist ', len(out_all_dist))
 
 # print(output_dist)
 # print(output_diff)
