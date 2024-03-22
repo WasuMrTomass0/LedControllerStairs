@@ -54,10 +54,10 @@ void setup()
   Serial.begin(115200);
   Serial.println("+");
 
-  // ptr_ic_low  = new IC_GPIO(PIN_IC_L);
-  // ptr_ic_high = new IC_GPIO(PIN_IC_H);
-  ptr_ic_low  = new IC_GPIO_UP_DN(PIN_IC_L, 0, 10, false);
-  ptr_ic_high = new IC_GPIO_UP_DN(PIN_IC_H, 0, 10, false);
+  ptr_ic_low  = new IC_GPIO(PIN_IC_L);
+  ptr_ic_high = new IC_GPIO(PIN_IC_H);
+  // ptr_ic_low  = new IC_GPIO_UP_DN(PIN_IC_L, 0, 10, false);
+  // ptr_ic_high = new IC_GPIO_UP_DN(PIN_IC_H, 0, 10, false);
   ptr_ac      = new AC_AllStepsAsOne(&ac_steps);
   ptr_bc      = new BC_Binary(bc_steps, &ac_steps, NUM_STEPS);
   ptr_pc      = new PC_PCA9685(bc_steps, NUM_STEPS);
