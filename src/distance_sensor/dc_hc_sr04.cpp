@@ -26,8 +26,6 @@ void DC_HC_SR04::update_duration()
     digitalWrite(m_pin_trig, LOW);
     // Record time travel
     m_duration = pulseIn(m_pin_echo, HIGH);
-
-    Serial.println(m_duration);
 }
 
 // Return distance in meters

@@ -1,15 +1,15 @@
-#ifndef DISTANCE_CONTROLLER_H
-#define DISTANCE_CONTROLLER_H
+#ifndef DISTANCE_SENSOR_H
+#define DISTANCE_SENSOR_H
 
 #include <stdint.h>
 #include <Arduino.h>
 
 
-class DistanceController
+class DistanceSensor
 {
 public:
     // Destructor
-    ~DistanceController();
+    ~DistanceSensor();
 
     // Return distance
     virtual uint16_t get_distance_m()  = 0;
@@ -17,4 +17,4 @@ public:
     virtual uint16_t get_distance_mm() = 0;
 };
 
-#endif  // DISTANCE_CONTROLLER_H
+#endif  // DISTANCE_SENSOR_H

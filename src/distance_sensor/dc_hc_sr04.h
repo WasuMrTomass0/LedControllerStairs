@@ -2,10 +2,10 @@
 #define DC_HC_SR04_H
 
 #include <stdint.h>
-#include "distance_controller.h"
+#include "distance_sensor.h"
 
 
-class DC_HC_SR04 : public DistanceController
+class DC_HC_SR04 : public DistanceSensor
 {
 protected:
     // Config
@@ -14,9 +14,9 @@ protected:
     // Measurement variables
     float m_duration;
     // Const values
-    const uint16_t CONV_M_C  = 0.001724137931034482758620689655172;
-    const uint16_t CONV_CM_C = 0.01724137931034482758620689655172;
-    const uint16_t CONV_MM_C = 0.1724137931034482758620689655172;
+    const float CONV_M_C  = 0.001715;
+    const float CONV_CM_C = 0.01715;
+    const float CONV_MM_C = 0.1715;
 
     void update_duration();
 
