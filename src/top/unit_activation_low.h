@@ -71,6 +71,7 @@ void loop()
 {
     // Get measurements
     dist_1 = ptr_hc_1->get_distance_cm();
+    delay(10);
     dist_2 = ptr_hc_2->get_distance_cm();
     // Upload measurements
     ptr_ic_1->upload_distance(dist_1);
