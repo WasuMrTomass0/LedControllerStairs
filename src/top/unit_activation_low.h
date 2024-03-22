@@ -5,6 +5,7 @@
 #include "../common/filter_up_dn.h"
 #include "../common/time_funcs.h"
 
+
 // Output pin
 const int PIN_OUT = 13;
 // Sensor 1 pins
@@ -62,7 +63,7 @@ void setup()
     digitalWrite(PIN_OUT, LOW);
     out_state = false;
 
-    Debug
+    // // Debug
     // Serial.println("Setup done");
 }
 
