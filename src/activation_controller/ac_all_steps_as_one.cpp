@@ -2,10 +2,10 @@
 
 
 // Constructor
-AC_AllStepsAsOne::AC_AllStepsAsOne(uint16_t *data_ptr) 
+AC_AllStepsAsOne::AC_AllStepsAsOne(uint16_t *data_ptr, unsigned long active_pd) 
     : ActivationController(data_ptr)
 {
-
+    m_active_pd = active_pd;
 }
 
 // Destructor
@@ -17,14 +17,17 @@ AC_AllStepsAsOne::~AC_AllStepsAsOne()
 // Main logic
 void AC_AllStepsAsOne::main(bool stateLow, bool stateHigh)
 {
-    // TODO: Add hold time when in ON state. Right now it is deactivating lights right away
     if (stateLow || stateHigh)
     {
+        Timer::update_timestamp(&m_active_ts);
         activate_all();
     }
     else
     {
-        deactivate_all();
+        if (Timer::is_time_elapsed(m_active_ts, m_active_pd))
+        {
+            deactivate_all();
+        }
     }
 }
 

@@ -7,7 +7,7 @@
 #include "../input_controller/ic_gpio_up_dn.h"
 #include "../pwm_controller/pwm_controller.h"
 #include "../pwm_controller/pc_pca9685.h"
-#include "../common/time_funcs.h"
+#include "../timer/timer.h"
 
 // Config
 const uint8_t NUM_STEPS = 16;
@@ -31,80 +31,77 @@ InputController*      ptr_ic_high;
 AC_AllStepsAsOne*     ptr_ac;
 BrightnessController* ptr_bc;
 PWMController*        ptr_pc;
-// Time control. ts - timestamp
-unsigned long ts_now  = 0;
-unsigned long ts_prev = 0;
-// Timestamps per section
+// Timestamps per section - (ts timestamp)
 unsigned long ts_ic = 0;
 unsigned long ts_ac = 0;
 unsigned long ts_bc = 0;
 unsigned long ts_pc = 0;
-// Periods per section 1sec / freq
+// Periods per section 1sec / freq - (pd period)
 const unsigned pd_ic = 1000 / 10;
 const unsigned pd_ac = 1000 / 100;
 const unsigned pd_bc = 1000 / 100;
 const unsigned pd_pc = 1000 / 100;
+// Objects settings
+const unsigned long active_pd = 10 * 1000;  // Active LEDs period
 // Other
 bool ic_low;
 bool ic_high;
 
 
+
 void setup()
 {
-  Serial.begin(115200);
-  Serial.println("+");
+  // // Debug
+  // Serial.begin(115200);
+  // Serial.println("Setup start");
 
   ptr_ic_low  = new IC_GPIO(PIN_IC_L);
   ptr_ic_high = new IC_GPIO(PIN_IC_H);
   // ptr_ic_low  = new IC_GPIO_UP_DN(PIN_IC_L, 0, 10, false);
   // ptr_ic_high = new IC_GPIO_UP_DN(PIN_IC_H, 0, 10, false);
-  ptr_ac      = new AC_AllStepsAsOne(&ac_steps);
+  ptr_ac      = new AC_AllStepsAsOne(&ac_steps, active_pd);
   ptr_bc      = new BC_Binary(bc_steps, &ac_steps, NUM_STEPS);
   ptr_pc      = new PC_PCA9685(bc_steps, NUM_STEPS);
 
-  Serial.println("1!");
+  // Serial.println("Setting max brightness");
   ptr_bc->set_max_brightness(0x0FFF);
-  Serial.println("2!");
+
+  // // Debug
+  // Serial.println("Setup done");
 }
 
 void loop()
 {
   
-  // Update time variables
-  ts_prev = ts_now;
-  ts_now = millis();
-  // // Controll overflow
-  // if (is_time_overflowed(ts_now, ts_prev))
-  // {
-  //   // Reset all timestamps
-  //   ts_ic = 0;
-  //   ts_ac = 0;
-  //   ts_bc = 0;
-  //   ts_pc = 0;
-  // }
-
+  // Update time variable
+  Timer::update_time();
+  
   // Inputs
-  if (is_time_elapsed(ts_now, ts_ic, pd_ic))
+  if (Timer::is_time_elapsed(ts_ic, pd_ic))
   {
     ic_low  = ptr_ic_low->get_state();
     ic_high = ptr_ic_high->get_state();
+    Timer::update_timestamp(&ts_ic);
   }
 
   // Activation
-  if (is_time_elapsed(ts_now, ts_ac, pd_ac))
+  if (Timer::is_time_elapsed(ts_ac, pd_ac))
   {
     ptr_ac->main(ic_low, ic_high);
+    Timer::update_timestamp(&ts_ac);
   }
 
   // Brigthness
-  if (is_time_elapsed(ts_now, ts_bc, pd_bc))
+  if (Timer::is_time_elapsed(ts_bc, pd_bc))
   {
     ptr_bc->main();
+    Timer::update_timestamp(&ts_bc);
   }
 
   // PWM
-  if (is_time_elapsed(ts_now, ts_pc, pd_pc))
+  if (Timer::is_time_elapsed(ts_pc, pd_pc))
   {
     ptr_pc->main();
+    Timer::update_timestamp(&ts_pc);
   }
 }

@@ -3,15 +3,19 @@
 
 #include <stdint.h>
 #include "activation_controller.h"
+#include "../timer/timer.h"
 
 
 class AC_AllStepsAsOne : public ActivationController
 {
 protected:
+    // Active period (period and timestamp)
+    unsigned long m_active_pd;
+    unsigned long m_active_ts = 0;
 
 public:
     // Constructor
-    AC_AllStepsAsOne(uint16_t *data_ptr) ;
+    AC_AllStepsAsOne(uint16_t *data_ptr, unsigned long active_pd) ;
 
     // Destructor
     ~AC_AllStepsAsOne();

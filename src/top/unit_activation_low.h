@@ -3,7 +3,7 @@
 #include "../input_controller/input_controller.h"
 #include "../input_controller/ic_distance_basic.h"
 #include "../common/filter_up_dn.h"
-#include "../common/time_funcs.h"
+#include "../timer/timer.h"
 
 
 // Output pin
