@@ -66,6 +66,60 @@ void setup()
   // Serial.println("Setting max brightness");
   ptr_bc->set_max_brightness(0x0FFF);
 
+  // TODO: Add start sequence to iterate over steps and iterate over brightness
+  // Start sequence
+  
+  // Light up only one step - one at a time
+  uint16_t max_brightness = 0x00FF;
+  ptr_bc->set_max_brightness(max_brightness);
+  for (uint8_t a = 0; a < NUM_STEPS; ++a)
+  {
+    for (uint8_t b = 0; b < NUM_STEPS; ++b)
+    {
+      // Turn on only one step that is matching
+      bc_steps[b] = a == b ? max_brightness : 0x0;
+    }
+    ptr_pc->main();
+    delay(500);
+  }
+
+  // Flash all steps
+  ptr_bc->set_max_brightness(max_brightness);
+  for (uint8_t a = 0; a < NUM_STEPS; ++a)
+  {
+    for (uint8_t b = 0; b < NUM_STEPS; ++b)
+    {
+      // Turn on and off
+      bc_steps[b] = a % 2 == 1 ? max_brightness : 0x0;
+    }
+    ptr_pc->main();
+    delay(50);
+  }
+
+  // Control brightness
+  // Control brighntess
+  for (uint16_t a = 0; a <= 0x0FFF; a += 0x000F)
+  {
+    // Turn on all steps
+    for (uint8_t b = 0; b < NUM_STEPS; ++b)
+    {
+      bc_steps[b] = a;
+    }
+    ptr_pc->main();
+    delay(5);
+  }
+
+  // Turn off
+  ptr_bc->set_max_brightness(max_brightness);
+  for (uint8_t b = 0; b < NUM_STEPS; ++b)
+  {
+    bc_steps[b] = 0x0000;
+  }
+  ptr_pc->main();
+
+
+
+
   // // Debug
   // Serial.println("Setup done");
 }

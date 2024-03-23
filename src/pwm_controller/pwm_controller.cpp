@@ -13,3 +13,27 @@ PWMController::~PWMController()
 {
     
 }
+
+// Set invert order
+void PWMController::set_invert_order(bool value)
+{
+    m_invert_order = value;
+}
+
+// Set invert state
+void PWMController::set_invert_state(bool value)
+{
+    m_invert_state = value;
+}
+
+// Get invert order
+bool PWMController::get_invert_order()
+{
+    return m_invert_order;
+}
+
+// Get invert state
+bool PWMController::get_invert_state()
+{
+    return m_invert_state;
+}

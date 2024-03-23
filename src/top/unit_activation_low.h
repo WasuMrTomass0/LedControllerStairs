@@ -19,15 +19,17 @@ DC_HC_SR04* ptr_hc_1;
 DC_HC_SR04* ptr_hc_2;
 // Thresholds
 const uint16_t ic_thr_min_cm = 0;
-const uint16_t ic_thr_max_cm = 75;
+const uint16_t ic_thr_max_cm = 85;
+const uint16_t ic_thr_max_cm_3 = 90;
 const bool ic_inverted = false;
 // Input activation controllers
-IC_DistanceBasic* ptr_ic_1;
-IC_DistanceBasic* ptr_ic_2;
+IC_DistanceBasic* ptr_ic_1;  // Each sensor
+IC_DistanceBasic* ptr_ic_2;  // Each sensor
+IC_DistanceBasic* ptr_ic_3;  // Average of distances (to cover middle)
 // Filter
 FilterUpDn *ptr_fltr;
 const uint8_t fltr_min = 0;
-const uint8_t fltr_max = 10;
+const uint8_t fltr_max = 5;
 const bool fltr_inverted = false;
 
 // Distance measurement
@@ -36,6 +38,7 @@ uint16_t dist_2;
 // Input activation verdict - from single measurement
 bool active_1;
 bool active_2;
+bool active_3;
 bool activation;
 // Filtered verdict
 bool out_state;
@@ -54,6 +57,7 @@ void setup()
     // Activation controllers
     ptr_ic_1 = new IC_DistanceBasic(ic_thr_min_cm, ic_thr_max_cm, ic_inverted);
     ptr_ic_2 = new IC_DistanceBasic(ic_thr_min_cm, ic_thr_max_cm, ic_inverted);
+    ptr_ic_3 = new IC_DistanceBasic(ic_thr_min_cm, ic_thr_max_cm, ic_inverted);
     // Up and down filter
     ptr_fltr = new FilterUpDn(fltr_min, fltr_max, fltr_inverted);
     // Set up pins
@@ -71,16 +75,18 @@ void loop()
 {
     // Get measurements
     dist_1 = ptr_hc_1->get_distance_cm();
-    delay(10);
+    delay(15);
     dist_2 = ptr_hc_2->get_distance_cm();
     // Upload measurements
     ptr_ic_1->upload_distance(dist_1);
     ptr_ic_2->upload_distance(dist_2);
+    ptr_ic_3->upload_distance( (dist_1 + dist_2) >> 1 );
     // Get states
     active_1 = ptr_ic_1->get_state();
     active_2 = ptr_ic_2->get_state();
+    active_3 = ptr_ic_3->get_state();
     // Create master flag
-    activation = active_1 || active_2;
+    activation = active_1 || active_2 || active_3;
     // Update up and down filter
     ptr_fltr->update(activation);
     // Drive outputs

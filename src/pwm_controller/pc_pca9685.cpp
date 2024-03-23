@@ -24,7 +24,9 @@ void PC_PCA9685::main()
     // Write data
     for (uint8_t i = 0; i < C_NUM_LEDS; ++i)
     {
+        uint8_t index = m_invert_order ? C_NUM_LEDS - 1 - i : i;
         uint16_t brightness = m_data_br[i];
+        if (m_invert_state) brightness = ~brightness;
         ada_pwm.setPWM(i, 0, brightness);
     }
  
