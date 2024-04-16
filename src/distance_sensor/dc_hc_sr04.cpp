@@ -2,9 +2,10 @@
 
 
 // Constructor
-DC_HC_SR04::DC_HC_SR04(uint8_t pin_trig, uint8_t pin_echo)
+DC_HC_SR04::DC_HC_SR04(uint8_t pin_trig, uint8_t pin_echo, unsigned long timeout)
     : m_pin_trig(pin_trig)
     , m_pin_echo(pin_echo)
+    , m_timeout (timeout)
 {
     pinMode(m_pin_trig, OUTPUT);
     pinMode(m_pin_echo, INPUT);
@@ -25,7 +26,8 @@ void DC_HC_SR04::update_duration()
     delayMicroseconds(10);
     digitalWrite(m_pin_trig, LOW);
     // Record time travel
-    m_duration = pulseIn(m_pin_echo, HIGH);
+    m_duration = pulseIn(m_pin_echo, HIGH, m_timeout);
+    m_duration = m_duration != 0 ? m_duration : m_timeout;
 }
 
 // Return distance in meters

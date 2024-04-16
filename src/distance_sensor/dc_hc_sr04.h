@@ -11,6 +11,7 @@ protected:
     // Config
     const uint8_t m_pin_trig;
     const uint8_t m_pin_echo;
+    const unsigned long m_timeout;
     // Measurement variables
     float m_duration;
     // Const values
@@ -22,7 +23,7 @@ protected:
 
 public:
     // Constructor
-    DC_HC_SR04(uint8_t pin_trig, uint8_t pin_echo);
+    DC_HC_SR04(uint8_t pin_trig, uint8_t pin_echo, unsigned long timeout);
 
     // Destructor
     ~DC_HC_SR04();
