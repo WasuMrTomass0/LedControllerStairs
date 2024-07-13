@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 #include "input_controller.h"
-#include "../common/filter_up_dn.h"
+#include "../filters/filter_up_dn.h"
 
 
 class IC_GPIO_UP_DN : public InputController

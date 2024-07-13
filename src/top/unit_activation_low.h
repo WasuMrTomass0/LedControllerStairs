@@ -2,7 +2,7 @@
 #include "../distance_sensor/dc_hc_sr04.h"
 #include "../input_controller/input_controller.h"
 #include "../input_controller/ic_distance_basic.h"
-#include "../common/filter_up_dn.h"
+#include "../filters/filter_up_dn.h"
 #include "../timer/timer.h"
 
 
