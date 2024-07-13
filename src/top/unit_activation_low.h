@@ -22,6 +22,7 @@ const uint16_t ic_thr_min_cm = 0;
 const uint16_t ic_thr_max_cm = 85;
 const uint16_t ic_thr_max_cm_3 = 90;
 const bool ic_inverted = false;
+const unsigned long DS_TIMEOUT_C = 200;
 // Input activation controllers
 IC_DistanceBasic* ptr_ic_1;  // Each sensor
 IC_DistanceBasic* ptr_ic_2;  // Each sensor
@@ -52,8 +53,8 @@ void setup()
 
     // Create objects
     // Distance sensors
-    ptr_hc_1 = new DC_HC_SR04(PIN_TRIG_1, PIN_ECHO_1);
-    ptr_hc_2 = new DC_HC_SR04(PIN_TRIG_2, PIN_ECHO_2);
+    ptr_hc_1 = new DC_HC_SR04(PIN_TRIG_1, PIN_ECHO_1, DS_TIMEOUT_C);
+    ptr_hc_2 = new DC_HC_SR04(PIN_TRIG_2, PIN_ECHO_2, DS_TIMEOUT_C);
     // Activation controllers
     ptr_ic_1 = new IC_DistanceBasic(ic_thr_min_cm, ic_thr_max_cm, ic_inverted);
     ptr_ic_2 = new IC_DistanceBasic(ic_thr_min_cm, ic_thr_max_cm, ic_inverted);

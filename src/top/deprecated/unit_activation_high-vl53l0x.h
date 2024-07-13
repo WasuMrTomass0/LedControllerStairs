@@ -1,5 +1,5 @@
 #include "../distance_sensor/distance_sensor.h"
-#include "../distance_sensor/dc_hc_sr04.h"
+#include "../distance_sensor/dc_vl53l0x.h"
 #include "../input_controller/input_controller.h"
 #include "../input_controller/ic_distance_basic.h"
 #include "../common/filter_up_dn.h"
@@ -9,17 +9,20 @@
 
 
 // Output pin
-const int PIN_OUT = 13;
+const int PIN_OUT = 12;
 // Sensor 1 pins
-const int PIN_TRIG_1 = 5;
-const int PIN_ECHO_1 = 6;
+const int PIN_SCL = A5;  // Non editable
+const int PIN_SDA = A4;  // Non editable
+const int PIN_OUT_1 = 4;
 // Sensor objects
-DC_HC_SR04* ptr_dc_1;
+DC_VL53L0X* ptr_ds_1;
+const unsigned long DS_TIMEOUT_MS_C = 5000;
+const unsigned long DS_INTERVAL_MS_C = 0;
+const bool DS_REPEAT_INIT_C = true;
 // Thresholds
 const uint16_t ic_thr_min_cm = 0;
-const uint16_t ic_thr_max_cm = 100;
+const uint16_t ic_thr_max_cm = 250;
 const bool ic_inverted = false;
-const unsigned long DS_TIMEOUT_C = 100000;
 // Input activation controllers
 IC_DistanceBasic* ptr_ic_1;  // Each sensor
 // Filter
@@ -39,13 +42,14 @@ bool out_state;
 void setup()
 {
 #ifdef DEBUG
+    // Debug
     Serial.begin(115200);
     Serial.println("Setup start");
 #endif
 
     // Create objects
     // Distance sensors
-    ptr_dc_1 = new DC_HC_SR04(PIN_TRIG_1, PIN_ECHO_1, DS_TIMEOUT_C);
+    ptr_ds_1 = new DC_VL53L0X(PIN_SCL, PIN_SDA, DS_TIMEOUT_MS_C, DS_INTERVAL_MS_C, DS_REPEAT_INIT_C);
     // Activation controllers
     ptr_ic_1 = new IC_DistanceBasic(ic_thr_min_cm, ic_thr_max_cm, ic_inverted);
     // Up and down filter
@@ -58,6 +62,7 @@ void setup()
     out_state = false;
 
 #ifdef DEBUG
+    // Debug
     Serial.println("Setup done");
 #endif
 }
@@ -65,8 +70,8 @@ void setup()
 void loop()
 {
     // Get measurements
-    dist_1 = ptr_dc_1->get_distance_cm();
-    delay(20);
+    // dist_1 = ptr_ds_1->get_distance_cm();
+    dist_1 = ptr_ds_1->get_raw_distance();
     // Upload measurements
     ptr_ic_1->upload_distance(dist_1);
     // Get states
@@ -87,5 +92,4 @@ void loop()
     Serial.print(",");
     Serial.println(out_state);
 #endif
-
 }
