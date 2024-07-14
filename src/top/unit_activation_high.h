@@ -5,14 +5,14 @@
 #include "../filters/filter_up_dn.h"
 #include "../timer/timer.h"
 
-#define DEBUG
+// #define DEBUG
 
 
 // Output pin
-const int PIN_OUT = 13;
+const int PIN_OUT = 12;
 // Sensor 1 pins
-const int PIN_TRIG_1 = 5;
-const int PIN_ECHO_1 = 6;
+const int PIN_TRIG_1 = 7;
+const int PIN_ECHO_1 = 9;
 // Sensor objects
 DC_HC_SR04* ptr_dc_1;
 // Thresholds
@@ -27,6 +27,8 @@ FilterUpDn *ptr_fltr;
 const uint8_t fltr_min = 0;
 const uint8_t fltr_max = 5;
 const bool fltr_inverted = false;
+// Timer
+unsigned long pin_out_posedge_ts;
 
 // Distance measurement
 uint16_t dist_1;
@@ -52,9 +54,11 @@ void setup()
     ptr_fltr = new FilterUpDn(fltr_min, fltr_max, fltr_inverted);
     // Set up pins
     pinMode(PIN_OUT, OUTPUT);
+    pinMode(LED_BUILTIN, OUTPUT);
 
     // Default output value
     digitalWrite(PIN_OUT, LOW);
+    digitalWrite(LED_BUILTIN, LOW);
     out_state = false;
 
 #ifdef DEBUG
@@ -78,7 +82,26 @@ void loop()
     {
         out_state = !out_state;
         digitalWrite(PIN_OUT, out_state);
+        digitalWrite(LED_BUILTIN, out_state);
     }
+
+    // // Activate output
+    // if (ptr_fltr->get_state())
+    // {
+    //     Timer::update_timestamp(&pin_out_posedge_ts);
+    //     if (!out_state)
+    //     {
+    //         out_state = true;
+    //         digitalWrite(PIN_OUT, out_state);
+    //     }
+    // }
+    // // Deactivate output
+    // else if (out_state && Timer::is_time_elapsed())
+    // {
+    //     out_state = false;
+    //     digitalWrite(PIN_OUT, out_state);
+    // }
+
 
 #ifdef DEBUG
     Serial.print(dist_1);
