@@ -5,6 +5,8 @@
 #include "../filters/filter_up_dn.h"
 #include "../timer/timer.h"
 
+// #define DEBUG
+
 
 // Output pin
 const int PIN_OUT = 13;
@@ -47,9 +49,10 @@ bool out_state;
 
 void setup()
 {
-    // // Debug
-    // Serial.begin(115200);
-    // Serial.println("Setup start");
+#ifdef DEBUG
+    Serial.begin(115200);
+    Serial.println("Setup start");
+#endif
 
     // Create objects
     // Distance sensors
@@ -68,8 +71,9 @@ void setup()
     digitalWrite(PIN_OUT, LOW);
     out_state = false;
 
-    // // Debug
-    // Serial.println("Setup done");
+#ifdef DEBUG
+    Serial.println("Setup done");
+#endif
 }
 
 void loop()
@@ -97,13 +101,12 @@ void loop()
         digitalWrite(PIN_OUT, out_state);
     }
 
-    // Serial.print(dist_1);
-    // Serial.print(",");
-    // Serial.print(dist_2);
-    // Serial.print(",");
-    // Serial.print(active_1);
-    // Serial.print(",");
-    // Serial.print(active_2);
-    // Serial.print(",");
-    // Serial.println(out_state);
+#ifdef DEBUG
+    Serial.print(dist_1);
+    Serial.print(",");
+    Serial.print(active_1);
+    Serial.print(",");
+    Serial.println(out_state);
+#endif
+
 }

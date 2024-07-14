@@ -21,6 +21,9 @@ public:
     // Check if time is elapsed using timestamp m_now
     static bool is_time_elapsed(unsigned long prev, unsigned long period);
 
+    // Check if time is elapsed using timestamp m_now, update if it is elapsed
+    static bool is_time_elapsed_with_update(unsigned long *prev, unsigned long period);
+
     // Check if time variables has overflowed
     static bool is_time_overflowed(unsigned long curr, unsigned long prev);
 
