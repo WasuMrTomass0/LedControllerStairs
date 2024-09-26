@@ -2,7 +2,7 @@
 #include "Settings.h"
 
 void digitalWrite(unsigned, bool) {}
-void digitalRead(unsigned) {}
+bool digitalRead(unsigned) { return true; }
 TYPE::time millis() { return 1098; }
 void delay(unsigned) {}
 void delayMicroseconds(unsigned) {}

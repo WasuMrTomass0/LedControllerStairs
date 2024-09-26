@@ -15,6 +15,24 @@ MovementSensorController/MovementSensorsController.vcxproj
 MovementSensorController/MovementSensorsController.vcxproj.user
 MovementSensorController/MovementSensorController.vcxproj
 MovementSensorController/MovementSensorController.vcxproj.filters
+MovementSensorController/MovementSensorController.aps
+MovementSensorController/MovementSensorController.rc
+MovementSensorController/resource.h
+
+*.asv
+
+MovementSensorController/Dataset/PyCharm/.idea/
+
+*.sln
+*.vcxproj
+*.filters
+*.user
+
+*.sln
+*.vcxproj 
+*.vcxproj.filters  
+*.vcxproj.user
+MovementSensorController/Dataset/CppClassification/Debug/
 
 .vs/
 
