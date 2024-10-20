@@ -9,19 +9,21 @@
 #include "../pwm_controller/pc_pca9685.h"
 #include "../timer/timer.h"
 
+// #define DEBUG
+
 // Config
 const uint8_t NUM_STEPS = 16;
 // Pins ESP32 DevKit1
 // SCL - GPIO 22
 // SDA - GPIO 21
-const uint8_t PIN_IC_L = 23;    // Lowest step activation
+const uint8_t PIN_IC_L = 23;   // Lowest step activation
 const uint8_t PIN_IC_H = 19;   // Highest step activation
 // // Pins Nodemcu v3
 // const uint8_t PIN_IC_L = 13;    // D7   // Lowest step activation
 // const uint8_t PIN_IC_H = 15;    // D8   // Highest step activation
 // // Pins Nano
 // const uint8_t PIN_IC_L = 2;    // D2   // Lowest step activation
-//const uint8_t PIN_IC_H = 3;    // D3   // Highest step activation
+// const uint8_t PIN_IC_H = 3;    // D3   // Highest step activation
 // Globals
 uint16_t ac_steps;              // Each bit represents one step
 uint16_t bc_steps[NUM_STEPS];   // Each element represents one step
@@ -51,9 +53,10 @@ bool ic_high;
 
 void setup()
 {
-  // // Debug
-  // Serial.begin(115200);
-  // Serial.println("Setup start");
+#ifdef DEBUG
+  Serial.begin(115200);
+  Serial.println("Setup start");
+#endif
 
   ptr_ic_low  = new IC_GPIO(PIN_IC_L);
   ptr_ic_high = new IC_GPIO(PIN_IC_H);
@@ -63,99 +66,97 @@ void setup()
   ptr_bc      = new BC_Binary(bc_steps, &ac_steps, NUM_STEPS);
   ptr_pc      = new PC_PCA9685(bc_steps, NUM_STEPS);
 
-  // Serial.println("Setting max brightness");
-  ptr_bc->set_max_brightness(0x0FFF);
+  // // //  // //  // //  // //  // //  // //  // //  // //  // //
+  // // Debug: Start of debug code
 
-  // TODO: Add start sequence to iterate over steps and iterate over brightness
-  // Start sequence
-  
-  // Light up only one step - one at a time
-  uint16_t max_brightness = 0x00FF;
-  ptr_bc->set_max_brightness(max_brightness);
-  for (uint8_t a = 0; a < NUM_STEPS; ++a)
-  {
-    for (uint8_t b = 0; b < NUM_STEPS; ++b)
-    {
-      // Turn on only one step that is matching
-      bc_steps[b] = a == b ? max_brightness : 0x0;
-    }
-    ptr_pc->main();
-    delay(500);
-  }
+  // // TODO: Add start sequence to iterate over steps and iterate over brightness
+  // // Start sequence
 
-  // Flash all steps
-  ptr_bc->set_max_brightness(max_brightness);
-  for (uint8_t a = 0; a < NUM_STEPS; ++a)
-  {
-    for (uint8_t b = 0; b < NUM_STEPS; ++b)
-    {
-      // Turn on and off
-      bc_steps[b] = a % 2 == 1 ? max_brightness : 0x0;
-    }
-    ptr_pc->main();
-    delay(50);
-  }
+  // // Set max brightness
+  // ptr_bc->set_max_brightness(0x0FFF);
 
-  // Control brightness
-  // Control brighntess
-  for (uint16_t a = 0; a <= 0x0FFF; a += 0x000F)
-  {
-    // Turn on all steps
-    for (uint8_t b = 0; b < NUM_STEPS; ++b)
-    {
-      bc_steps[b] = a;
-    }
-    ptr_pc->main();
-    delay(5);
-  }
+  // // Light up only one step - one at a time
+  // uint16_t max_brightness = 0x00FF;
+  // ptr_bc->set_max_brightness(max_brightness);
+  // for (uint8_t a = 0; a < NUM_STEPS; ++a)
+  // {
+  //   for (uint8_t b = 0; b < NUM_STEPS; ++b)
+  //   {
+  //     // Turn on only one step that is matching
+  //     bc_steps[b] = a == b ? max_brightness : 0x0;
+  //   }
+  //   ptr_pc->main();
+  //   delay(500);
+  // }
 
-  // Turn off
-  ptr_bc->set_max_brightness(max_brightness);
-  for (uint8_t b = 0; b < NUM_STEPS; ++b)
-  {
-    bc_steps[b] = 0x0000;
-  }
-  ptr_pc->main();
+  // // Flash all steps
+  // ptr_bc->set_max_brightness(max_brightness);
+  // for (uint8_t a = 0; a < NUM_STEPS; ++a)
+  // {
+  //   for (uint8_t b = 0; b < NUM_STEPS; ++b)
+  //   {
+  //     // Turn on and off
+  //     bc_steps[b] = a % 2 == 1 ? max_brightness : 0x0;
+  //   }
+  //   ptr_pc->main();
+  //   delay(50);
+  // }
 
+  // // Control brightness
+  // for (uint16_t a = 0; a <= 0x0FFF; a += 0x000F)
+  // {
+  //   // Turn on all steps
+  //   for (uint8_t b = 0; b < NUM_STEPS; ++b)
+  //   {
+  //     bc_steps[b] = a;
+  //   }
+  //   ptr_pc->main();
+  //   delay(5);
+  // }
 
+  // // Turn off
+  // ptr_bc->set_max_brightness(max_brightness);
+  // for (uint8_t b = 0; b < NUM_STEPS; ++b)
+  // {
+  //   bc_steps[b] = 0x0000;
+  // }
+  // ptr_pc->main();
+  // // Debug: End of debug code
+  // // //  // //  // //  // //  // //  // //  // //  // //  // //
 
-
-  // // Debug
-  // Serial.println("Setup done");
+#ifdef DEBUG
+    Serial.println("Setup done");
+#endif
 }
 
 void loop()
 {
-  
+
   // Update time variable
   Timer::update_time();
-  
+
   // Inputs
-  if (Timer::is_time_elapsed(ts_ic, pd_ic))
+  if (Timer::is_time_elapsed_with_update(&ts_ic, pd_ic))
   {
     ic_low  = ptr_ic_low->get_state();
     ic_high = ptr_ic_high->get_state();
-    Timer::update_timestamp(&ts_ic);
   }
 
   // Activation
-  if (Timer::is_time_elapsed(ts_ac, pd_ac))
+  if (Timer::is_time_elapsed_with_update(&ts_ac, pd_ac))
   {
     ptr_ac->main(ic_low, ic_high);
-    Timer::update_timestamp(&ts_ac);
   }
 
   // Brigthness
-  if (Timer::is_time_elapsed(ts_bc, pd_bc))
+  if (Timer::is_time_elapsed_with_update(&ts_bc, pd_bc))
   {
     ptr_bc->main();
-    Timer::update_timestamp(&ts_bc);
   }
 
   // PWM
-  if (Timer::is_time_elapsed(ts_pc, pd_pc))
+  if (Timer::is_time_elapsed_with_update(&ts_pc, pd_pc))
   {
     ptr_pc->main();
-    Timer::update_timestamp(&ts_pc);
   }
 }
